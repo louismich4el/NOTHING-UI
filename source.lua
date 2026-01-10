@@ -256,10 +256,10 @@ end;
 function Library.new(config)
 	config = Config(config,{
 		Title = "UI Library",
-		Description = "discord.gg/BH6pE7jesa",
+		Description = "NOTHING",
 		Keybind = Enum.KeyCode.LeftControl,
-		Logo = "http://www.roblox.com/asset/?id=18810965406",
-		Size = UDim2.new(0.100000001, 445, 0.100000001, 315)
+		Logo = "http://www.roblox.com/asset/?id=18898582662",
+		Size = UDim2.new(0.1, 445, 0.1, 315)
 	});
 
 	local TweenInfo1 = TweenInfo.new(1,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut);
@@ -299,7 +299,7 @@ function Library.new(config)
 	WindowTable.WindowToggle = true;
 	WindowTable.Keybind = config.Keybind;
 	WindowTable.ToggleButton = nil
-	
+
 	local ImageButton = Instance.new("ImageButton")
 
 	ImageButton.Parent = MainFrame
@@ -314,7 +314,7 @@ function Library.new(config)
 	ImageButton.ZIndex = 50
 	ImageButton.Image = "rbxassetid://10002398990"
 	ImageButton.ImageTransparency = 1
-	
+
 	local HomeIcon = Instance.new("ImageLabel")
 	HomeIcon.Parent = ImageButton
 	HomeIcon.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -328,7 +328,7 @@ function Library.new(config)
 	HomeIcon.ScaleType = Enum.ScaleType.Fit
 	HomeIcon.ImageTransparency = 1;
 	HomeIcon.BackgroundTransparency = 1;
-	
+
 	local function Update()
 		if WindowTable.WindowToggle then
 			Twen:Create(MainFrame,TweenInfo.new(1.5,Enum.EasingStyle.Quint),{BackgroundTransparency = 0.4,Size = config.Size}):Play();
@@ -337,11 +337,11 @@ function Library.new(config)
 			Twen:Create(Logo,TweenInfo1,{ImageTransparency = 0}):Play();
 			Twen:Create(MainFrame,TweenInfo.new(0.5,Enum.EasingStyle.Quint),{Position = UDim2.fromScale(0.5,0.5)}):Play();
 			WindowTable.ElBlurUI.Enabled = true;
-			
+
 			Twen:Create(BlockFrame1,TweenInfo1,{BackgroundTransparency = 0.8}):Play();
 			Twen:Create(BlockFrame2,TweenInfo1,{BackgroundTransparency = 0.8}):Play();
 			Twen:Create(BlockFrame3,TweenInfo1,{BackgroundTransparency = 0.8}):Play();
-			
+
 			Twen:Create(TabButtonFrame,TweenInfo1,{Position = UDim2.fromScale(0.16,0.215)}):Play();
 			Twen:Create(MainTabFrame,TweenInfo1,{Position = UDim2.fromScale(0.658,0.131)}):Play();
 			Twen:Create(Description,TweenInfo1,{Position = UDim2.fromScale(0.328,0.071)}):Play();
@@ -355,13 +355,13 @@ function Library.new(config)
 				ImageTransparency = 0.5,
 				AnchorPoint = Vector2.new(1, 0)
 			}):Play();
-			
+
 			Twen:Create(HomeIcon,TweenInfo.new(0.5),{
 				ImageTransparency = 1,
 			}):Play()
 
 			ImageButton.Image = "rbxassetid://10002398990"
-			
+
 			Twen:Create(UICorner,TweenInfo.new(1),{
 				CornerRadius = UDim.new(0, 7)
 			}):Play()
@@ -380,22 +380,22 @@ function Library.new(config)
 			Twen:Create(UICorner,TweenInfo.new(1),{
 				CornerRadius = UDim.new(0.1,0)
 			}):Play()
-			
+
 			Twen:Create(ImageButton,TweenInfo1,{
 				Position = UDim2.new(0.5, 0, 0.5, 0),
 				Size = UDim2.new(1,0,1,0),
 				ImageTransparency = 1,
 				AnchorPoint = Vector2.new(0.5,0.5)
 			}):Play();
-			
+
 			Twen:Create(HomeIcon,TweenInfo.new(1),{
 				ImageTransparency = 0.5,
 			}):Play()
-			
-			
+
+
 			Twen:Create(Title,TweenInfo1,{Position = UDim2.fromScale(1,0.071)}):Play();
 
-			
+
 			Twen:Create(BlockFrame1,TweenInfo1,{BackgroundTransparency = 1}):Play();
 			Twen:Create(BlockFrame2,TweenInfo1,{BackgroundTransparency = 1}):Play();
 			Twen:Create(BlockFrame3,TweenInfo1,{BackgroundTransparency = 1}):Play();
@@ -444,7 +444,7 @@ function Library.new(config)
 	MainFrame.Size = UDim2.fromOffset(config.Size.X.Offset,config.Size.Y.Offset)
 	MainFrame.Active = true;
 	MainFrame.ClipsDescendants = true;
-	
+
 	WindowTable.AddEffect = function(color)
 		Library.GradientImage(MainFrame,color)
 	end
@@ -470,7 +470,7 @@ function Library.new(config)
 	MainDropShadow.ScaleType = Enum.ScaleType.Slice
 	MainDropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
 	MainDropShadow.Rotation = 0.0001;
-	
+
 	Twen:Create(MainDropShadow,TweenInfo2,{ImageTransparency = 0.6}):Play();
 
 	Headers.Name = "Headers"
@@ -1636,17 +1636,17 @@ function Library.new(config)
 				UICorner.CornerRadius = UDim.new(0, 2)
 				UICorner.Parent = FunctionTitle
 
-                local TitleTable = {}
+				local TitleTable = {}
 
-                TitleTable.Visible = function(newindex)
-                    FunctionTitle.Visible = newindex
-                end
+				TitleTable.Visible = function(newindex)
+					FunctionTitle.Visible = newindex
+				end
 
-                function TitleTable:Set(txt)
-                    TextInt.Text = txt
-                end
+				function TitleTable:Set(txt)
+					TextInt.Text = txt
+				end
 
-                return TitleTable
+				return TitleTable
 			end;
 
 			function SectionTable:NewButton(cfg)
@@ -2492,17 +2492,15 @@ Library.NewAuth = function(conf)
 	conf = Config(conf,{
 		Title = "Nothing $ KEY SYSTEM",
 		GetKey = function() return 'https://example.com' end,
-		Auth = function(key) if key == '1 or 1' then return key; end; end,
+		Auth = function(key) if key == '1' then return key; end; end,
 		Freeze = false,
 	});
-
 
 	if conf.Auth then
 		if debug.info(conf.Auth,'s') == '[C]' then
 			if error then
 				error('huh');
 			end;
-
 			return;
 		end;
 	end;
@@ -2512,57 +2510,74 @@ Library.NewAuth = function(conf)
 			if error then
 				error('huh');
 			end;
-
 			return;
 		end;
 	end;
 
+	-- Variable groups
 	local ScreenGui = Instance.new("ScreenGui")
-	local vaid = Instance.new('BindableEvent')
-	local Auth = Instance.new("Frame")
-	local MainFrame = Instance.new("Frame")
-	local BlockFrame = Instance.new("Frame")
-	local UICorner = Instance.new("UICorner")
-	local UIGradient = Instance.new("UIGradient")
-	local UICorner_2 = Instance.new("UICorner")
-	local Button2 = Instance.new("TextButton")
-	local UICorner_3 = Instance.new("UICorner")
-	local DropShadow = Instance.new("ImageLabel")
-	local UIStroke = Instance.new("UIStroke")
-	local TextBox = Instance.new("TextBox")
-	local UICorner_4 = Instance.new("UICorner")
-	local DropShadow_2 = Instance.new("ImageLabel")
-	local UIStroke_2 = Instance.new("UIStroke")
-	local Button1 = Instance.new("TextButton")
-	local UICorner_5 = Instance.new("UICorner")
-	local DropShadow_3 = Instance.new("ImageLabel")
-	local UIStroke_3 = Instance.new("UIStroke")
-	local MainDropShadow = Instance.new("ImageLabel")
-	local Title = Instance.new("TextLabel")
-	local UIGradient_2 = Instance.new("UIGradient")
-	local UICorner_6 = Instance.new("UICorner")
 
+	local AuthFrame = Instance.new("Frame")
+	local MainFrame = Instance.new("Frame")
+	local BlockDividerFrame = Instance.new("Frame")
+
+	local BlockDividerCorner = Instance.new("UICorner")
+	local BlockDividerGradient = Instance.new("UIGradient")
+
+	local MainFrameCorner = Instance.new("UICorner")
+
+	local ActivateButton = Instance.new("TextButton")
+	local ActivateButtonCorner = Instance.new("UICorner")
+	local ActivateButtonDropShadow = Instance.new("ImageLabel")
+	local ActivateButtonStroke = Instance.new("UIStroke")
+
+	local KeyTextBox = Instance.new("TextBox")
+	local KeyTextBoxCorner = Instance.new("UICorner")
+	local KeyTextBoxDropShadow = Instance.new("ImageLabel")
+	local KeyTextBoxStroke = Instance.new("UIStroke")
+
+	local GetKeyButton = Instance.new("TextButton")
+	local GetKeyButtonCorner = Instance.new("UICorner")
+	local GetKeyButtonDropShadow = Instance.new("ImageLabel")
+	local GetKeyButtonStroke = Instance.new("UIStroke")
+
+	local MainFrameDropShadow = Instance.new("ImageLabel")
+
+	local TitleLabel = Instance.new("TextLabel")
+	local TitleGradient = Instance.new("UIGradient")
+
+	local CloseButton = Instance.new("ImageButton")
+
+	---------------------------------------
+	------ SCREEN GUI
+	---------------------------------------
 	ScreenGui.Parent = CoreGui
 	ScreenGui.IgnoreGuiInset = true
 	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
-	ScreenGui.Name = game:GetService('HttpService'):GenerateGUID(false)..tostring(tick())
+	ScreenGui.Name = game:GetService('HttpService'):GenerateGUID(false)
 
-	Auth.Name = "Auth"
-	Auth.Parent = ScreenGui
-	Auth.Active = true
-	Auth.AnchorPoint = Vector2.new(0.5, 0.5)
-	Auth.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
-	Auth.BackgroundTransparency = 1.000
-	Auth.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Auth.BorderSizePixel = 0
-	Auth.ClipsDescendants = true
-	Auth.Position = UDim2.new(0.5, 0, 0.5, 0)
-	Auth.Size = UDim2.new(0.100000001, 245, 0.100000001, 40)
+	---------------------------------------
+	------ AUTH FRAME
+	---------------------------------------
+	AuthFrame.Name = "Auth"
+	AuthFrame.Parent = ScreenGui
+	AuthFrame.Active = true
+	AuthFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+	AuthFrame.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
+	AuthFrame.BackgroundTransparency = 1.000
+	AuthFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	AuthFrame.BorderSizePixel = 0
+	AuthFrame.ClipsDescendants = true
+	AuthFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+	AuthFrame.Size = UDim2.new(0.100000001, 245, 0.100000001, 40)
 
-	local BlueEffect = ElBlurSource.new(MainFrame,true);
+	---------------------------------------
+	------ MAIN FRAME
+	---------------------------------------
+	local BlurEffect = ElBlurSource.new(MainFrame,true);
 
 	MainFrame.Name = "MainFrame"
-	MainFrame.Parent = Auth
+	MainFrame.Parent = AuthFrame
 	MainFrame.Active = true
 	MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 	MainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
@@ -2576,215 +2591,279 @@ Library.NewAuth = function(conf)
 		Size = UDim2.new(1, 0, 1, 0)
 	}):Play();
 
-	BlockFrame.Name = "BlockFrame"
-	BlockFrame.Parent = MainFrame
-	BlockFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-	BlockFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	BlockFrame.BackgroundTransparency = 0.800
-	BlockFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	BlockFrame.BorderSizePixel = 0
-	BlockFrame.Position = UDim2.new(0.5, 0, 0.150000006, 0)
-	BlockFrame.Size = UDim2.new(1, 0, 0, 1)
-	BlockFrame.ZIndex = 3
+	---------------------------------------
+	------ BLOCK DIVIDER
+	---------------------------------------
+	BlockDividerFrame.Name = "BlockDivider"
+	BlockDividerFrame.Parent = MainFrame
+	BlockDividerFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+	BlockDividerFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	BlockDividerFrame.BackgroundTransparency = 0.800
+	BlockDividerFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	BlockDividerFrame.BorderSizePixel = 0
+	BlockDividerFrame.Position = UDim2.new(0.5, 0, 0.155, 0)
+	BlockDividerFrame.Size = UDim2.new(1, 0, 0, 1)
+	BlockDividerFrame.ZIndex = 3
 
-	UICorner.CornerRadius = UDim.new(0.5, 0)
-	UICorner.Parent = BlockFrame
+	BlockDividerCorner.CornerRadius = UDim.new(0.5, 0)
+	BlockDividerCorner.Parent = BlockDividerFrame
 
-	UIGradient.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 1.00), NumberSequenceKeypoint.new(0.05, 0.00), NumberSequenceKeypoint.new(0.96, 0.00), NumberSequenceKeypoint.new(1.00, 1.00)}
-	UIGradient.Parent = BlockFrame
+	BlockDividerGradient.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 1.00), NumberSequenceKeypoint.new(0.05, 0.00), NumberSequenceKeypoint.new(0.96, 0.00), NumberSequenceKeypoint.new(1.00, 1.00)}
+	BlockDividerGradient.Parent = BlockDividerFrame
 
-	UICorner_2.CornerRadius = UDim.new(0, 7)
-	UICorner_2.Parent = MainFrame
+	---------------------------------------
+	------ MAIN FRAME CORNER
+	---------------------------------------
+	MainFrameCorner.CornerRadius = UDim.new(0, 7)
+	MainFrameCorner.Parent = MainFrame
 
-	Button2.Name = "Button2"
-	Button2.Parent = MainFrame
-	Button2.AnchorPoint = Vector2.new(0.5, 0.5)
-	Button2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-	Button2.BackgroundTransparency = 0.500
-	Button2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Button2.BorderSizePixel = 0
-	Button2.Position = UDim2.new(0.75, 0, 0.82, 0)
-	Button2.Size = UDim2.new(0.447547048, 0, 0.2, 0)
-	Button2.ZIndex = 3
-	Button2.Font = Enum.Font.GothamBold
-	Button2.Text = "ACTIVATE"
-	Button2.TextColor3 = Color3.fromRGB(255, 255, 255)
-	Button2.TextSize = 14.000
+	---------------------------------------
+	------ ACTIVATE BUTTON
+	---------------------------------------
+	ActivateButton.Name = "ActivateButton"
+	ActivateButton.Parent = MainFrame
+	ActivateButton.AnchorPoint = Vector2.new(1, 0.5)
+	ActivateButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	ActivateButton.BackgroundTransparency = 0.500
+	ActivateButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ActivateButton.BorderSizePixel = 0
+	ActivateButton.Position = UDim2.new(0.9725, 0, 0.82, 0)
+	ActivateButton.Size = UDim2.new(0.455, 0, 0.2, 0)
+	ActivateButton.ZIndex = 3
+	ActivateButton.Font = Enum.Font.GothamBold
+	ActivateButton.Text = "ACTIVATE"
+	ActivateButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+	ActivateButton.TextSize = 14.000
 
-	UICorner_3.CornerRadius = UDim.new(0, 2)
-	UICorner_3.Parent = Button2
+	ActivateButtonCorner.CornerRadius = UDim.new(0, 2)
+	ActivateButtonCorner.Parent = ActivateButton
 
-	DropShadow.Name = "DropShadow"
-	DropShadow.Parent = Button2
-	DropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-	DropShadow.BackgroundTransparency = 1.000
-	DropShadow.BorderSizePixel = 0
-	DropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-	DropShadow.Size = UDim2.new(1, 37, 1, 37)
-	DropShadow.Image = "rbxassetid://6015897843"
-	DropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-	DropShadow.ImageTransparency = 0.600
-	DropShadow.ScaleType = Enum.ScaleType.Slice
-	DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
+	ActivateButtonDropShadow.Name = "ActivateDropShadow"
+	ActivateButtonDropShadow.Parent = ActivateButton
+	ActivateButtonDropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	ActivateButtonDropShadow.BackgroundTransparency = 1.000
+	ActivateButtonDropShadow.BorderSizePixel = 0
+	ActivateButtonDropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	ActivateButtonDropShadow.Size = UDim2.new(1, 37, 1, 37)
+	ActivateButtonDropShadow.Image = "rbxassetid://6015897843"
+	ActivateButtonDropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	ActivateButtonDropShadow.ImageTransparency = 0.600
+	ActivateButtonDropShadow.ScaleType = Enum.ScaleType.Slice
+	ActivateButtonDropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
 
-	UIStroke.Transparency = 1
-	UIStroke.Color = Color3.fromRGB(255, 255, 255)
-	UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-	UIStroke.Parent = Button2
-	Twen:Create(UIStroke,TweenInfo.new(1,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
+	ActivateButtonStroke.Transparency = 1
+	ActivateButtonStroke.Color = Color3.fromRGB(255, 255, 255)
+	ActivateButtonStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+	ActivateButtonStroke.Parent = ActivateButton
+	Twen:Create(ActivateButtonStroke,TweenInfo.new(1,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
 		Transparency = 0.900
 	}):Play();
 
-	TextBox.Parent = MainFrame
-	TextBox.AnchorPoint = Vector2.new(0.5, 0.5)
-	TextBox.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-	TextBox.BackgroundTransparency = 0.500
-	TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	TextBox.BorderSizePixel = 0
-	TextBox.Position = UDim2.new(0.5, 0, 0.44, 0)
-	TextBox.Size = UDim2.new(0.945, 0, 0.41, 0)
-	TextBox.ZIndex = 2
-	TextBox.ClearTextOnFocus = false
-	TextBox.Font = Enum.Font.Unknown
-	TextBox.PlaceholderText = "ENTER KEY"
-	TextBox.Text = ""
-	TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-	TextBox.TextSize = 10.000
-	TextBox.TextTransparency = 0.250
-	TextBox.TextWrapped = true
+	---------------------------------------
+	------ KEY TEXT BOX
+	---------------------------------------
+	KeyTextBox.Parent = MainFrame
+	KeyTextBox.AnchorPoint = Vector2.new(0.5, 0.5)
+	KeyTextBox.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	KeyTextBox.BackgroundTransparency = 0.500
+	KeyTextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	KeyTextBox.BorderSizePixel = 0
+	KeyTextBox.Position = UDim2.new(0.5, 0, 0.44, 0)
+	KeyTextBox.Size = UDim2.new(0.945, 0, 0.41, 0)
+	KeyTextBox.ZIndex = 2
+	KeyTextBox.ClearTextOnFocus = false
+	KeyTextBox.Font = Enum.Font.Unknown
+	KeyTextBox.PlaceholderText = "ENTER KEY"
+	KeyTextBox.Text = ""
+	KeyTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+	KeyTextBox.TextSize = 10.000
+	KeyTextBox.TextTransparency = 0.250
+	KeyTextBox.TextWrapped = true
 
-	UICorner_4.CornerRadius = UDim.new(0, 2)
-	UICorner_4.Parent = TextBox
+	KeyTextBoxCorner.CornerRadius = UDim.new(0, 2)
+	KeyTextBoxCorner.Parent = KeyTextBox
 
-	DropShadow_2.Name = "DropShadow"
-	DropShadow_2.Parent = TextBox
-	DropShadow_2.AnchorPoint = Vector2.new(0.5, 0.5)
-	DropShadow_2.BackgroundTransparency = 1.000
-	DropShadow_2.BorderSizePixel = 0
-	DropShadow_2.Position = UDim2.new(0.5, 0, 0.5, 0)
-	DropShadow_2.Size = UDim2.new(1, 37, 1, 37)
-	DropShadow_2.Image = "rbxassetid://6015897843"
-	DropShadow_2.ImageColor3 = Color3.fromRGB(0, 0, 0)
-	DropShadow_2.ImageTransparency = 0.600
-	DropShadow_2.ScaleType = Enum.ScaleType.Slice
-	DropShadow_2.SliceCenter = Rect.new(49, 49, 450, 450)
+	KeyTextBoxDropShadow.Name = "KeyTextBoxDropShadow"
+	KeyTextBoxDropShadow.Parent = KeyTextBox
+	KeyTextBoxDropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	KeyTextBoxDropShadow.BackgroundTransparency = 1.000
+	KeyTextBoxDropShadow.BorderSizePixel = 0
+	KeyTextBoxDropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	KeyTextBoxDropShadow.Size = UDim2.new(1, 37, 1, 37)
+	KeyTextBoxDropShadow.Image = "rbxassetid://6015897843"
+	KeyTextBoxDropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	KeyTextBoxDropShadow.ImageTransparency = 0.600
+	KeyTextBoxDropShadow.ScaleType = Enum.ScaleType.Slice
+	KeyTextBoxDropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
 
-	UIStroke_2.Transparency = 1
-	UIStroke_2.Color = Color3.fromRGB(255, 255, 255)
-	UIStroke_2.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-	UIStroke_2.Parent = TextBox
-	Twen:Create(UIStroke_2,TweenInfo.new(1,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
+	KeyTextBoxStroke.Transparency = 1
+	KeyTextBoxStroke.Color = Color3.fromRGB(255, 255, 255)
+	KeyTextBoxStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+	KeyTextBoxStroke.Parent = KeyTextBox
+	Twen:Create(KeyTextBoxStroke,TweenInfo.new(1,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
 		Transparency = 0.900
 	}):Play();
-	Button1.Name = "Button1"
-	Button1.Parent = MainFrame
-	Button1.AnchorPoint = Vector2.new(0.5, 0.5)
-	Button1.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-	Button1.BackgroundTransparency = 0.500
-	Button1.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Button1.BorderSizePixel = 0
-	Button1.Position = UDim2.new(0.25, 0, 0.82, 0)
-	Button1.Size = UDim2.new(0.447547048, 0, 0.2, 0)
-	Button1.ZIndex = 3
-	Button1.Font = Enum.Font.GothamBold
-	Button1.Text = "GET KEY"
-	Button1.TextColor3 = Color3.fromRGB(255, 255, 255)
-	Button1.TextSize = 14.000
 
-	UICorner_5.CornerRadius = UDim.new(0, 2)
-	UICorner_5.Parent = Button1
+	---------------------------------------
+	------ GET KEY BUTTON
+	---------------------------------------
+	GetKeyButton.Name = "GetKeyButton"
+	GetKeyButton.Parent = MainFrame
+	GetKeyButton.AnchorPoint = Vector2.new(0, 0.5)
+	GetKeyButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	GetKeyButton.BackgroundTransparency = 0.500
+	GetKeyButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	GetKeyButton.BorderSizePixel = 0
+	GetKeyButton.Position = UDim2.new(0.0275, 0, 0.82, 0)
+	GetKeyButton.Size = UDim2.new(0.455, 0, 0.2, 0)
+	GetKeyButton.ZIndex = 3
+	GetKeyButton.Font = Enum.Font.GothamBold
+	GetKeyButton.Text = "GET KEY"
+	GetKeyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+	GetKeyButton.TextSize = 14.000
 
-	DropShadow_3.Name = "DropShadow"
-	DropShadow_3.Parent = Button1
-	DropShadow_3.AnchorPoint = Vector2.new(0.5, 0.5)
-	DropShadow_3.BackgroundTransparency = 1.000
-	DropShadow_3.BorderSizePixel = 0
-	DropShadow_3.Position = UDim2.new(0.5, 0, 0.5, 0)
-	DropShadow_3.Size = UDim2.new(1, 37, 1, 37)
-	DropShadow_3.Image = "rbxassetid://6015897843"
-	DropShadow_3.ImageColor3 = Color3.fromRGB(0, 0, 0)
-	DropShadow_3.ImageTransparency = 0.600
-	DropShadow_3.ScaleType = Enum.ScaleType.Slice
-	DropShadow_3.SliceCenter = Rect.new(49, 49, 450, 450)
+	GetKeyButtonCorner.CornerRadius = UDim.new(0, 2)
+	GetKeyButtonCorner.Parent = GetKeyButton
 
-	UIStroke_3.Transparency = 1
-	UIStroke_3.Color = Color3.fromRGB(255, 255, 255)
-	UIStroke_3.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-	UIStroke_3.Parent = Button1
-	Twen:Create(UIStroke_3,TweenInfo.new(1,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
+	GetKeyButtonDropShadow.Name = "GetKeyDropShadow"
+	GetKeyButtonDropShadow.Parent = GetKeyButton
+	GetKeyButtonDropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	GetKeyButtonDropShadow.BackgroundTransparency = 1.000
+	GetKeyButtonDropShadow.BorderSizePixel = 0
+	GetKeyButtonDropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	GetKeyButtonDropShadow.Size = UDim2.new(1, 37, 1, 37)
+	GetKeyButtonDropShadow.Image = "rbxassetid://6015897843"
+	GetKeyButtonDropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	GetKeyButtonDropShadow.ImageTransparency = 0.600
+	GetKeyButtonDropShadow.ScaleType = Enum.ScaleType.Slice
+	GetKeyButtonDropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
+
+	GetKeyButtonStroke.Transparency = 1
+	GetKeyButtonStroke.Color = Color3.fromRGB(255, 255, 255)
+	GetKeyButtonStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+	GetKeyButtonStroke.Parent = GetKeyButton
+	Twen:Create(GetKeyButtonStroke,TweenInfo.new(1,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
 		Transparency = 0.900
 	}):Play();
-	MainDropShadow.Name = "MainDropShadow"
-	MainDropShadow.Parent = MainFrame
-	MainDropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-	MainDropShadow.BackgroundTransparency = 1.000
-	MainDropShadow.BorderSizePixel = 0
-	MainDropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-	MainDropShadow.Rotation = 0.0001
-	MainDropShadow.Size = UDim2.new(1, 47, 1, 47)
-	MainDropShadow.ZIndex = 0
-	MainDropShadow.Image = "rbxassetid://6015897843"
-	MainDropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-	MainDropShadow.ImageTransparency = 1
-	MainDropShadow.ScaleType = Enum.ScaleType.Slice
-	MainDropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
-	Twen:Create(MainDropShadow,TweenInfo.new(2,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
+
+	---------------------------------------
+	------ MAIN FRAME DROP SHADOW
+	---------------------------------------
+	MainFrameDropShadow.Name = "MainDropShadow"
+	MainFrameDropShadow.Parent = MainFrame
+	MainFrameDropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	MainFrameDropShadow.BackgroundTransparency = 1.000
+	MainFrameDropShadow.BorderSizePixel = 0
+	MainFrameDropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	MainFrameDropShadow.Rotation = 0.0001
+	MainFrameDropShadow.Size = UDim2.new(1, 47, 1, 47)
+	MainFrameDropShadow.ZIndex = 0
+	MainFrameDropShadow.Image = "rbxassetid://6015897843"
+	MainFrameDropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	MainFrameDropShadow.ImageTransparency = 1
+	MainFrameDropShadow.ScaleType = Enum.ScaleType.Slice
+	MainFrameDropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
+	Twen:Create(MainFrameDropShadow,TweenInfo.new(2,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
 		ImageTransparency = 0.600
 	}):Play();
-	Title.Name = "Title"
-	Title.Parent = MainFrame
-	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Title.BackgroundTransparency = 1.000
-	Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Title.BorderSizePixel = 0
-	Title.Position = UDim2.new(0.025, 0, 0.035, 0)
-	Title.Size = UDim2.new(0.9, 0, 0.075, 0)
-	Title.Font = Enum.Font.GothamBold
-	Title.Text = conf.Title;
-	Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-	Title.TextScaled = true
-	Title.TextSize = 14.000
-	Title.TextWrapped = true
-	Title.TextXAlignment = Enum.TextXAlignment.Left
 
-	UIGradient_2.Rotation = 90
-	UIGradient_2.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.00), NumberSequenceKeypoint.new(0.75, 0.27), NumberSequenceKeypoint.new(1.00, 1.00)}
-	UIGradient_2.Parent = Title
+	---------------------------------------
+	------ TITLE LABEL
+	---------------------------------------
+	TitleLabel.Name = "Title"
+	TitleLabel.Parent = MainFrame
+	TitleLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TitleLabel.BackgroundTransparency = 1.000
+	TitleLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TitleLabel.BorderSizePixel = 0
+	TitleLabel.Position = UDim2.new(0.025, 0, 0.0375, 0)
+	TitleLabel.Size = UDim2.new(0.9, 0, 0.0875, 0)
+	TitleLabel.Font = Enum.Font.GothamBold
+	TitleLabel.Text = conf.Title
+	TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TitleLabel.TextScaled = true
+	TitleLabel.TextSize = 14.000
+	TitleLabel.TextWrapped = true
+	TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+	TitleLabel.TextYAlignment = Enum.TextYAlignment.Center
 
-	UICorner_6.CornerRadius = UDim.new(0, 7)
-	UICorner_6.Parent = MainFrame
+	TitleGradient.Rotation = 90
+	TitleGradient.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.00), NumberSequenceKeypoint.new(0.75, 0.27), NumberSequenceKeypoint.new(1.00, 1.00)}
+	TitleGradient.Parent = TitleLabel
 
-	local id = tostring(math.random(1,100))..tostring(math.random(1,100))..tostring(math.random(1,100))..tostring(math.random(1,100))..tostring(math.random(1,100))..tostring(math.random(1,100))..tostring(tick()):reverse();
+	---------------------------------------
+	------ CLOSE BUTTON
+	---------------------------------------
+	CloseButton.Name = "CloseButton"
+	CloseButton.Parent = MainFrame
+	CloseButton.AnchorPoint = Vector2.new(1, 0.5)
+	CloseButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	CloseButton.BackgroundTransparency = 1.000
+	CloseButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	CloseButton.BorderSizePixel = 0
+	CloseButton.Position = UDim2.new(0.996, 0, 0.078, 0)
+	CloseButton.Size = UDim2.new(0.05, 0, 0.125, 0)
+	CloseButton.ZIndex = 4
+	CloseButton.Image = "rbxassetid://10002398990"
+	CloseButton.ImageTransparency = 0.000
+	CloseButton.ScaleType = Enum.ScaleType.Fit
+	CloseButton.AutoButtonColor = false
 
-	Button1.MouseButton1Click:Connect(function()
+	local id = game:GetService("HttpService"):GenerateGUID(false)
+
+	---------------------------------------
+	------- CLOSE BUTTON EVENT
+	---------------------------------------
+	CloseButton.MouseButton1Click:Connect(function()
+		KeyTextBox.Text = "*/*/*/*/*/*/*/*/*/*/*/*/*/*";
+		local vaid = ScreenGui:FindFirstChild("AuthBindable")
+		if vaid then
+			vaid:Fire(id);
+		end
+	end);
+
+	---------------------------------------
+	------ GET KEY BUTTON EVENT
+	---------------------------------------
+	GetKeyButton.MouseButton1Click:Connect(function()
 		local str = conf.GetKey();
-
 		if str then
 			if typeof(str) == 'string' then
 				local clip = getfenv()['toclipboard'] or getfenv()['setclipboard'] or getfenv()['print'];
-
 				clip(str);
 			end;
 		end;
 	end);
 
-
-	Button2.MouseButton1Click:Connect(function()
-		local str = conf.Auth(TextBox.Text);
-
+	---------------------------------------
+	------ ACTIVATE BUTTON EVENT
+	---------------------------------------
+	ActivateButton.MouseButton1Click:Connect(function()
+		local str = conf.Auth(KeyTextBox.Text);
 		if str then
-			TextBox.Text = "*/*/*/*/*/*/*/*/*/*/*/*/*/*";
-
-			vaid:Fire(id)
+			KeyTextBox.Text = "*/*/*/*/*/*/*/*/*/*/*/*/*/*";
+			local vaid = ScreenGui:FindFirstChild("AuthBindable")
+			if vaid then
+				vaid:Fire(id);
+			end
 		else
-			TextBox.Text = "";
+			KeyTextBox.Text = "";
 		end;
 	end);
 
+	---------------------------------------
+	------ FREEZE HANDLER
+	---------------------------------------
 	if conf.Freeze then
+		local vaid = ScreenGui:FindFirstChild("AuthBindable")
+		if not vaid then
+			local tempV = Instance.new('BindableEvent')
+			tempV.Name = "AuthBindable"
+			tempV.Parent = ScreenGui
+			vaid = tempV
+		end;
 		while ScreenGui do task.wait();
 			local ez = vaid.Event:Wait();
-
 			if ez == id then
 				break;
 			end;
@@ -2793,26 +2872,19 @@ Library.NewAuth = function(conf)
 
 	return {
 		Close = function()
-			Twen:Create(MainDropShadow,TweenInfo.new(1,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
+			Twen:Create(MainFrameDropShadow,TweenInfo.new(1.25,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
 				ImageTransparency = 1
 			}):Play();
-
-			BlueEffect.Destroy();
-
-			Twen:Create(MainFrame,TweenInfo.new(1,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
+			BlurEffect.Destroy();
+			Twen:Create(MainFrame,TweenInfo.new(1.25,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
 				Size = UDim2.new(0.8,0,0.8,0)
 			}):Play();
-
-			task.delay(1,function()
-				Twen:Create(MainFrame,TweenInfo.new(1,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
+			task.delay(0.5,function()
+				Twen:Create(MainFrame,TweenInfo.new(0.75,Enum.EasingStyle.Quint,Enum.EasingDirection.In),{
 					Position = UDim2.new(0.5, 0, 1.5, 0),
-					Size = UDim2.new(0.8,0,0.8,0)
 				}):Play();
-
-				task.delay(1.2,function()
-
+				task.delay(1.5,function()
 					ScreenGui:Destroy()
-
 				end)
 			end)
 		end,
