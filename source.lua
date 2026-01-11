@@ -19,6 +19,12 @@ local Icons = (function()
 	return nil;
 end)() or {};
 
+local old = error
+local error = function(msg)
+	task.spawn(function() game:GetService("TestService"):Error(msg) end)
+	return coroutine.yield() or nil
+end
+
 local ElBlurSource = function()
 	local GuiSystem = {}
 	local RunService = game:GetService('RunService');
@@ -2812,14 +2818,42 @@ Library.NewAuth = function(conf)
 	local id = game:GetService("HttpService"):GenerateGUID(false)
 
 	---------------------------------------
+	------- CLOSE ANIMATION (reusable)
+	---------------------------------------
+	local function PlayCloseAnimation()
+		Twen:Create(MainFrameDropShadow,TweenInfo.new(1.25,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
+			ImageTransparency = 1
+		}):Play();
+		pcall(function()
+			BlurEffect.Destroy();
+		end)
+		Twen:Create(MainFrame,TweenInfo.new(1.25,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
+			Size = UDim2.new(0.8,0,0.8,0)
+		}):Play();
+		task.delay(0.5,function()
+			Twen:Create(MainFrame,TweenInfo.new(0.75,Enum.EasingStyle.Quint,Enum.EasingDirection.In),{
+				Position = UDim2.new(0.5, 0, 1.5, 0),
+			}):Play();
+			task.delay(1.5,function()
+				if ScreenGui and ScreenGui.Parent then
+					ScreenGui:Destroy()
+				end
+			end)
+		end)
+	end
+
+	---------------------------------------
 	------- CLOSE BUTTON EVENT
 	---------------------------------------
 	CloseButton.MouseButton1Click:Connect(function()
 		KeyTextBox.Text = "*/*/*/*/*/*/*/*/*/*/*/*/*/*";
 		local vaid = ScreenGui:FindFirstChild("AuthBindable")
 		if vaid then
-			vaid:Fire(id);
+			vaid:Fire(id, false);
 		end
+		task.spawn(function()
+			PlayCloseAnimation()
+		end)
 	end);
 
 	---------------------------------------
@@ -2844,7 +2878,7 @@ Library.NewAuth = function(conf)
 			KeyTextBox.Text = "*/*/*/*/*/*/*/*/*/*/*/*/*/*";
 			local vaid = ScreenGui:FindFirstChild("AuthBindable")
 			if vaid then
-				vaid:Fire(id);
+				vaid:Fire(id, true);
 			end
 		else
 			KeyTextBox.Text = "";
@@ -2862,31 +2896,21 @@ Library.NewAuth = function(conf)
 			tempV.Parent = ScreenGui
 			vaid = tempV
 		end;
-		while ScreenGui do task.wait();
-			local ez = vaid.Event:Wait();
+		while ScreenGui do
+			local ez, ok = vaid.Event:Wait();
 			if ez == id then
-				break;
+				if ok == true then
+					break;
+				else
+					return coroutine.yield() or nil
+				end;
 			end;
 		end;
 	end;
 
 	return {
 		Close = function()
-			Twen:Create(MainFrameDropShadow,TweenInfo.new(1.25,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
-				ImageTransparency = 1
-			}):Play();
-			BlurEffect.Destroy();
-			Twen:Create(MainFrame,TweenInfo.new(1.25,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
-				Size = UDim2.new(0.8,0,0.8,0)
-			}):Play();
-			task.delay(0.5,function()
-				Twen:Create(MainFrame,TweenInfo.new(0.75,Enum.EasingStyle.Quint,Enum.EasingDirection.In),{
-					Position = UDim2.new(0.5, 0, 1.5, 0),
-				}):Play();
-				task.delay(1.5,function()
-					ScreenGui:Destroy()
-				end)
-			end)
+			PlayCloseAnimation()
 		end,
 	}
 end;
