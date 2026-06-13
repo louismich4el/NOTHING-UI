@@ -103,6 +103,11 @@ local ElBlurSource = function()
 		local Update = function()
 			if not C4.Enabled then
 				Part.Transparency = 1
+				Part.CanCollide = false
+				Part.CanQuery = false
+				Part.CanTouch = false
+				Part.Size = Vector3.zero
+				Part.CFrame = CFrame.new(0,-10000,0)
 				DepthOfField.Enabled = false
 				return
 			end
@@ -439,10 +444,11 @@ function Library.new(config)
 				WindowTable.ElBlurUI.Instances.DepthOfField.Enabled = false
 				
 				Part.Transparency = 1
-				Part.Size = Vector3.zero
-				Part.Position = Vector3.new(0, -10000, 0)
-				Part.CanQuery = false
 				Part.CanCollide = false
+				Part.CanQuery = false
+				Part.CanTouch = false
+				Part.Size = Vector3.zero
+				Part.CFrame = CFrame.new(0,-10000,0)
 				
 				if WindowTable.ElBlurUI.Signal then
 					WindowTable.ElBlurUI.Signal:Disconnect()
