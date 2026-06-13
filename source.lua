@@ -438,6 +438,15 @@ function Library.new(config)
 				WindowTable.ElBlurUI.Instances.DepthOfField.Enabled = false
 				WindowTable.ElBlurUI.Instances.Part.Transparency = 1
 			end
+
+			WindowTable.ElBlurUI.Enabled = false
+
+for _, v in ipairs(game:GetService("Lighting"):GetChildren()) do
+	if v:IsA("DepthOfFieldEffect") then
+		print("FOUND DOF:", v.Name)
+		v.Enabled = false
+	end
+end
 		end;
 
 		WindowTable.Dropdown:Close()
