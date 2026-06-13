@@ -311,6 +311,8 @@ function Library.new(config)
 	local ImageButton
 	local HomeIcon
 
+	warn(IsMobile)
+
 	if IsMobile then
 		ImageButton = Instance.new("ImageButton")
 		ImageButton.Parent = MainFrame
@@ -3568,6 +3570,6 @@ function Library:Console()
 	return overview;
 end;
 
-warn(IsMobile)
+print('[ OK ]: Fetch Nothing Library')
 
-return table.freeze(Library);
+return table.freeze(Library)
