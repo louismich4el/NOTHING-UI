@@ -345,6 +345,7 @@ function Library.new(config)
 
 	local function Update()
 		if WindowTable.WindowToggle then
+			MainFrame.Visible = true
 			Twen:Create(MainFrame,TweenInfo.new(1.5,Enum.EasingStyle.Quint),{BackgroundTransparency = 0.4,Size = config.Size}):Play();
 			Twen:Create(MainDropShadow,TweenInfo1,{ImageTransparency = 0.6}):Play();
 			Twen:Create(Headers,TweenInfo1,{BackgroundTransparency = 0.5}):Play();
@@ -382,8 +383,18 @@ function Library.new(config)
 			}):Play()
 
 		else
-			Twen:Create(MainFrame,TweenInfo.new(1,Enum.EasingStyle.Quint),{BackgroundTransparency = 1,Size = UDim2.new(0.085, 10,0.05, 0)}):Play();
-			Twen:Create(MainFrame,TweenInfo.new(0.5,Enum.EasingStyle.Quint),{Position = UDim2.new(0.5, 0,0.05, 0)}):Play();
+			if IsMobile then
+				Twen:Create(MainFrame,TweenInfo.new(1,Enum.EasingStyle.Quint),{
+					BackgroundTransparency = 1,
+					Size = UDim2.new(0.085, 10,0.05, 0)
+				}):Play();
+
+				Twen:Create(MainFrame,TweenInfo.new(0.5,Enum.EasingStyle.Quint),{
+					Position = UDim2.new(0.5, 0,0.05, 0)
+				}):Play();
+			else
+				MainFrame.Visible = false
+			end
 			Twen:Create(MainDropShadow,TweenInfo1,{ImageTransparency = 1}):Play();
 			Twen:Create(Headers,TweenInfo1,{BackgroundTransparency = 1}):Play();
 			Twen:Create(Logo,TweenInfo1,{ImageTransparency = 1}):Play();
@@ -3572,4 +3583,4 @@ end;
 
 print('[ OK ]: Fetch Nothing Library')
 
-return table.freeze(Library)
+return table.freeze(Library);
