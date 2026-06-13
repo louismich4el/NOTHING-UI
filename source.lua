@@ -312,7 +312,7 @@ function Library.new(config)
 	local ImageButton
 	local HomeIcon
 	
-	if UIS.TouchEnabled and not UIS.KeyboardEnabled then
+	if UIS.TouchEnabled then
 		ImageButton = Instance.new("ImageButton")
 		ImageButton.Parent = MainFrame
 		ImageButton.AnchorPoint = Vector2.new(1, 0)
