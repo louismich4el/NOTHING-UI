@@ -359,6 +359,10 @@ function Library.new(config)
 			
 			if WindowTable.ElBlurUI.Instances then
 				WindowTable.ElBlurUI.Instances.DepthOfField.Enabled = true
+				-- Reconnect RenderStepped signal if it was disconnected when UI was closed
+				if not WindowTable.ElBlurUI.Signal then
+					WindowTable.ElBlurUI.Signal = game:GetService('RunService').RenderStepped:Connect(WindowTable.ElBlurUI.Update)
+				end
 			end
 
 			Twen:Create(BlockFrame1,TweenInfo1,{BackgroundTransparency = 0.8}):Play();
