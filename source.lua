@@ -308,32 +308,39 @@ function Library.new(config)
 
 	local ImageButton = Instance.new("ImageButton")
 
-	ImageButton.Parent = MainFrame
-	ImageButton.AnchorPoint = Vector2.new(1, 0)
-	ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	ImageButton.BackgroundTransparency = 1.000
-	ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	ImageButton.BorderSizePixel = 0
-	ImageButton.Position = UDim2.new(0.992500007, 0, 0.00999999978, 0)
-	ImageButton.Size = UDim2.new(0.0850000009, 0, 0.0850000009, 0)
-	ImageButton.SizeConstraint = Enum.SizeConstraint.RelativeYY
-	ImageButton.ZIndex = 50
-	ImageButton.Image = "rbxassetid://10002398990"
-	ImageButton.ImageTransparency = 1
+	local UIS = game:GetService("UserInputService")
+	local ImageButton
+	local HomeIcon
+	
+	if UIS.TouchEnabled and not UIS.KeyboardEnabled then
+		ImageButton = Instance.new("ImageButton")
+		ImageButton.Parent = MainFrame
+		ImageButton.AnchorPoint = Vector2.new(1, 0)
+		ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		ImageButton.BackgroundTransparency = 1
+		ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		ImageButton.BorderSizePixel = 0
+		ImageButton.Position = UDim2.new(0.992500007, 0, 0.00999999978, 0)
+		ImageButton.Size = UDim2.new(0.0850000009, 0, 0.0850000009, 0)
+		ImageButton.SizeConstraint = Enum.SizeConstraint.RelativeYY
+		ImageButton.ZIndex = 50
+		ImageButton.Image = "rbxassetid://10002398990"
+		ImageButton.ImageTransparency = 1
 
-	local HomeIcon = Instance.new("ImageLabel")
-	HomeIcon.Parent = ImageButton
-	HomeIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-	HomeIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	HomeIcon.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	HomeIcon.BorderSizePixel = 0
-	HomeIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
-	HomeIcon.Size = UDim2.new(0.7,0,0.7,0)
-	HomeIcon.ZIndex = 49
-	HomeIcon.Image = "rbxassetid://7733993211"
-	HomeIcon.ScaleType = Enum.ScaleType.Fit
-	HomeIcon.ImageTransparency = 1;
-	HomeIcon.BackgroundTransparency = 1;
+		HomeIcon = Instance.new("ImageLabel")
+		HomeIcon.Parent = ImageButton
+		HomeIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+		HomeIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		HomeIcon.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		HomeIcon.BorderSizePixel = 0
+		HomeIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
+		HomeIcon.Size = UDim2.new(0.7,0,0.7,0)
+		HomeIcon.ZIndex = 49
+		HomeIcon.Image = "rbxassetid://7733993211"
+		HomeIcon.ScaleType = Enum.ScaleType.Fit
+		HomeIcon.ImageTransparency = 1
+		HomeIcon.BackgroundTransparency = 1
+	end
 
 	local function Update()
 		if WindowTable.WindowToggle then
@@ -354,17 +361,20 @@ function Library.new(config)
 
 			Twen:Create(Title,TweenInfo1,{Position = UDim2.fromScale(0.328,0.013)}):Play();
 			Twen:Create(Headers,TweenInfo1,{Position = UDim2.fromScale(0.01,0.015)}):Play();
-
-			Twen:Create(ImageButton,TweenInfo.new(0.85,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
-				Position = UDim2.new(0.992500007, 0, 0.00999999978, 0),
-				Size = UDim2.new(0.0850000009, 0, 0.0850000009, 0),
-				ImageTransparency = 0.5,
-				AnchorPoint = Vector2.new(1, 0)
-			}):Play();
-
-			Twen:Create(HomeIcon,TweenInfo.new(0.5),{
-				ImageTransparency = 1,
-			}):Play()
+			if ImageButton then
+				Twen:Create(ImageButton,TweenInfo.new(0.85,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
+					Position = UDim2.new(0.992500007, 0, 0.00999999978, 0),
+					Size = UDim2.new(0.0850000009, 0, 0.0850000009, 0),
+					ImageTransparency = 0.5,
+					AnchorPoint = Vector2.new(1, 0)
+				}):Play();
+			end
+			
+			if HomeIcon then
+				Twen:Create(HomeIcon,TweenInfo.new(0.5),{
+					ImageTransparency = 1,
+				}):Play()
+			end
 
 			ImageButton.Image = "rbxassetid://10002398990"
 
@@ -387,17 +397,20 @@ function Library.new(config)
 				CornerRadius = UDim.new(0.1,0)
 			}):Play()
 
-			Twen:Create(ImageButton,TweenInfo1,{
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-				Size = UDim2.new(1,0,1,0),
-				ImageTransparency = 1,
-				AnchorPoint = Vector2.new(0.5,0.5)
-			}):Play();
-
-			Twen:Create(HomeIcon,TweenInfo.new(1),{
-				ImageTransparency = 0.5,
-			}):Play()
-
+			if ImageButton then
+				Twen:Create(ImageButton,TweenInfo1,{
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					Size = UDim2.new(1,0,1,0),
+					ImageTransparency = 1,
+					AnchorPoint = Vector2.new(0.5,0.5)
+				}):Play();
+			end
+			
+			if HomeIcon then
+				Twen:Create(HomeIcon,TweenInfo.new(1),{
+					ImageTransparency = 0.5,
+				}):Play()
+			end
 
 			Twen:Create(Title,TweenInfo1,{Position = UDim2.fromScale(1,0.071)}):Play();
 
@@ -417,14 +430,18 @@ function Library.new(config)
 		task.delay(1,WindowTable.ElBlurUI.Update)
 	end;
 
-	Twen:Create(ImageButton,TweenInfo1,{
-		ImageTransparency = 0.5
-	}):Play()
-
-	ImageButton.MouseButton1Click:Connect(function()
-		WindowTable.WindowToggle = not WindowTable.WindowToggle
-		Update()
-	end)
+	if ImageButton then
+		Twen:Create(ImageButton,TweenInfo1,{
+			ImageTransparency = 0.5
+		}):Play()
+	end
+	
+	if ImageButton then
+		ImageButton.MouseButton1Click:Connect(function()
+			WindowTable.WindowToggle = not WindowTable.WindowToggle
+			Update()
+		end)
+	end
 
 	Input.InputBegan:Connect(function(io, processed)
 		if io.KeyCode == WindowTable.Keybind and not processed then
