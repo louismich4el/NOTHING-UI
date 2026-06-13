@@ -438,12 +438,6 @@ function Library.new(config)
 				WindowTable.ElBlurUI.Instances.DepthOfField.Enabled = false
 				WindowTable.ElBlurUI.Instances.Part.Transparency = 1
 			end
-
-			for _, v in ipairs(game:GetService("Lighting"):GetChildren()) do
-				if v:IsA("DepthOfFieldEffect") then
-					v.Enabled = false
-				end
-			end
 		end;
 
 		WindowTable.Dropdown:Close()
