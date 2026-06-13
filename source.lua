@@ -350,19 +350,12 @@ function Library.new(config)
 	local function Update()
 		if WindowTable.WindowToggle then
 			MainFrame.Visible = true
-			Twen:Create(MainFrame,TweenInfo.new(1.5,Enum.EasingStyle.Quint),{BackgroundTransparency = 0.4,Size = config.Size}):Play();
+			Twen:Create(MainFrame,TweenInfo.new(1.5,Enum.EasingStyle.Quint),{BackgroundTransparency = 0,Size = config.Size}):Play();
 			Twen:Create(MainDropShadow,TweenInfo1,{ImageTransparency = 0.6}):Play();
 			Twen:Create(Headers,TweenInfo1,{BackgroundTransparency = 0.5}):Play();
 			Twen:Create(Logo,TweenInfo1,{ImageTransparency = 0}):Play();
 			Twen:Create(MainFrame,TweenInfo.new(0.5,Enum.EasingStyle.Quint),{Position = UDim2.fromScale(0.5,0.5)}):Play();
-			WindowTable.ElBlurUI.Enabled = true;
 			
-			if WindowTable.ElBlurUI.Instances then
-				WindowTable.ElBlurUI.Instances.DepthOfField.Enabled = true
-				if not WindowTable.ElBlurUI.Signal then
-					WindowTable.ElBlurUI.Signal = game:GetService('RunService').RenderStepped:Connect(WindowTable.ElBlurUI.Update)
-				end
-			end
 
 			Twen:Create(BlockFrame1,TweenInfo1,{BackgroundTransparency = 0.8}):Play();
 			Twen:Create(BlockFrame2,TweenInfo1,{BackgroundTransparency = 0.8}):Play();
@@ -439,25 +432,7 @@ function Library.new(config)
 			Twen:Create(BlockFrame2,TweenInfo1,{BackgroundTransparency = 1}):Play();
 			Twen:Create(BlockFrame3,TweenInfo1,{BackgroundTransparency = 1}):Play();
 			
-			WindowTable.ElBlurUI.Enabled = false
 			
-			if WindowTable.ElBlurUI.Instances then
-				local Part = WindowTable.ElBlurUI.Instances.Part
-				
-				WindowTable.ElBlurUI.Instances.DepthOfField.Enabled = false
-				
-				Part.Transparency = 1
-				Part.CanCollide = false
-				Part.CanQuery = false
-				Part.CanTouch = false
-				Part.Size = Vector3.zero
-				Part.CFrame = CFrame.new(0,-10000,0)
-				
-				if WindowTable.ElBlurUI.Signal then
-					WindowTable.ElBlurUI.Signal:Disconnect()
-					WindowTable.ElBlurUI.Signal = nil
-				end
-			end
 		end;
 
 		WindowTable.Dropdown:Close()
@@ -465,9 +440,6 @@ function Library.new(config)
 			WindowTable.ToggleButton();
 		end;
 
-		if WindowTable.WindowToggle and WindowTable.ElBlurUI.Enabled then
-			task.delay(1, WindowTable.ElBlurUI.Update)
-		end
 	end;
 	
 	if IsMobile then
@@ -499,9 +471,8 @@ function Library.new(config)
 	MainFrame.Name = "MainFrame"
 	MainFrame.Parent = ScreenGui
 	MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-	MainFrame.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
-	MainFrame.BackgroundTransparency = 1
-	MainFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	MainFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+	MainFrame.BackgroundTransparency = 0
 	MainFrame.BorderSizePixel = 0
 	MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 	MainFrame.Size = UDim2.fromOffset(config.Size.X.Offset,config.Size.Y.Offset)
@@ -512,9 +483,9 @@ function Library.new(config)
 		Library.GradientImage(MainFrame,color)
 	end
 
-	Twen:Create(MainFrame,TweenInfo1,{BackgroundTransparency = 0.4,Size = config.Size}):Play();
+	Twen:Create(MainFrame,TweenInfo1,{BackgroundTransparency = 0,Size = config.Size}):Play();
 
-	WindowTable.ElBlurUI = ElBlurSource.new(MainFrame);
+	WindowTable.ElBlurUI = { Enabled = false, Instances = nil, Signal = nil, Update = function() end, Destroy = function() end };
 
 	UICorner.CornerRadius = UDim.new(0, 7)
 	UICorner.Parent = MainFrame
