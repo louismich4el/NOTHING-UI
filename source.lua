@@ -455,6 +455,37 @@ function Library.new(config)
 		end)
 	end
 
+	-- PC Close Button (always visible on non-mobile)
+	if not IsMobile then
+		local PCCloseButton = Instance.new("ImageButton")
+		PCCloseButton.Name = "PCCloseButton"
+		PCCloseButton.Parent = MainFrame
+		PCCloseButton.AnchorPoint = Vector2.new(1, 0)
+		PCCloseButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		PCCloseButton.BackgroundTransparency = 1
+		PCCloseButton.BorderSizePixel = 0
+		PCCloseButton.Position = UDim2.new(0.998, 0, 0.01, 0)
+		PCCloseButton.Size = UDim2.new(0, 28, 0, 28)
+		PCCloseButton.ZIndex = 50
+		PCCloseButton.Image = "rbxassetid://7743878857"
+		PCCloseButton.ImageColor3 = Color3.fromRGB(255, 255, 255)
+		PCCloseButton.ImageTransparency = 0
+		PCCloseButton.ScaleType = Enum.ScaleType.Fit
+		PCCloseButton.AutoButtonColor = false
+
+		PCCloseButton.MouseEnter:Connect(function()
+			Twen:Create(PCCloseButton, TweenInfo.new(0.2), {ImageColor3 = Color3.fromRGB(255, 80, 80)}):Play()
+		end)
+		PCCloseButton.MouseLeave:Connect(function()
+			Twen:Create(PCCloseButton, TweenInfo.new(0.2), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+		end)
+
+		PCCloseButton.MouseButton1Click:Connect(function()
+			WindowTable.WindowToggle = not WindowTable.WindowToggle
+			Update()
+		end)
+	end
+
 	Input.InputBegan:Connect(function(io, processed)
 		if io.KeyCode == WindowTable.Keybind and not processed then
 			WindowTable.WindowToggle = not WindowTable.WindowToggle
