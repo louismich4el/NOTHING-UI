@@ -317,7 +317,7 @@ function Library.new(config)
 		ImageButton.Parent = MainFrame
 		ImageButton.AnchorPoint = Vector2.new(1, 0)
 		ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		ImageButton.BackgroundTransparency = 0.4
+		ImageButton.BackgroundTransparency = 1
 		ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		ImageButton.BorderSizePixel = 0
 		ImageButton.Position = UDim2.new(0.992500007, 0, 0.00999999978, 0)
