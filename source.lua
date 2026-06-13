@@ -430,16 +430,23 @@ function Library.new(config)
 			Twen:Create(BlockFrame1,TweenInfo1,{BackgroundTransparency = 1}):Play();
 			Twen:Create(BlockFrame2,TweenInfo1,{BackgroundTransparency = 1}):Play();
 			Twen:Create(BlockFrame3,TweenInfo1,{BackgroundTransparency = 1}):Play();
-
+			
 			WindowTable.ElBlurUI.Enabled = false
 			
 			if WindowTable.ElBlurUI.Instances then
+				local Part = WindowTable.ElBlurUI.Instances.Part
+				
 				WindowTable.ElBlurUI.Instances.DepthOfField.Enabled = false
-				WindowTable.ElBlurUI.Instances.Part.Transparency = 1
-				WindowTable.ElBlurUI.Instances.Part.Size = Vector3.new(0.001,0.001,0.001)
-
+				
+				Part.Transparency = 1
+				Part.Size = Vector3.zero
+				Part.Position = Vector3.new(0, -10000, 0)
+				Part.CanQuery = false
+				Part.CanCollide = false
+				
 				if WindowTable.ElBlurUI.Signal then
 					WindowTable.ElBlurUI.Signal:Disconnect()
+					WindowTable.ElBlurUI.Signal = nil
 				end
 			end
 		end;
