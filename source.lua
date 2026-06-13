@@ -307,7 +307,7 @@ function Library.new(config)
 	WindowTable.ToggleButton = nil
 
 	local UIS = game:GetService("UserInputService")
-	local IsMobile = UIS.TouchEnabled and not UIS.KeyboardEnabled
+	local IsMobile = UIS.TouchEnabled and not UIS.KeyboardEnabled and not UIS.MouseEnabled
 	local ImageButton
 	local HomeIcon
 
