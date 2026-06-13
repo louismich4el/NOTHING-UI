@@ -388,7 +388,7 @@ function Library.new(config)
 		else
 			if IsMobile then
 				Twen:Create(MainFrame,TweenInfo.new(1,Enum.EasingStyle.Quint),{
-					BackgroundTransparency = 1,
+					BackgroundTransparency = 0.4,
 					Size = UDim2.new(0.085, 10,0.05, 0)
 				}):Play();
 
