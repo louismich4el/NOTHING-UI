@@ -102,11 +102,13 @@ local ElBlurSource = function()
 
 		local Update = function()
 			if not C4.Enabled then
-				Twen:Create(Part,TweenInfo.new(1,Enum.EasingStyle.Quint),{
-					Transparency = 1;
-				}):Play()
+				DepthOfField.Enabled = false
+				Part.Transparency = 1
+				
 				return
 			end
+			
+			DepthOfField.Enabled = true
 			
 			Twen:Create(Part,TweenInfo.new(1,Enum.EasingStyle.Quint,Enum.EasingDirection.Out),{
 				Transparency = 0.8;
@@ -350,6 +352,10 @@ function Library.new(config)
 			Twen:Create(Logo,TweenInfo1,{ImageTransparency = 0}):Play();
 			Twen:Create(MainFrame,TweenInfo.new(0.5,Enum.EasingStyle.Quint),{Position = UDim2.fromScale(0.5,0.5)}):Play();
 			WindowTable.ElBlurUI.Enabled = true;
+			
+			if WindowTable.ElBlurUI.Instances then
+				WindowTable.ElBlurUI.Instances.DepthOfField.Enabled = true
+			end
 
 			Twen:Create(BlockFrame1,TweenInfo1,{BackgroundTransparency = 0.8}):Play();
 			Twen:Create(BlockFrame2,TweenInfo1,{BackgroundTransparency = 0.8}):Play();
@@ -427,6 +433,11 @@ function Library.new(config)
 			Twen:Create(BlockFrame3,TweenInfo1,{BackgroundTransparency = 1}):Play();
 
 			WindowTable.ElBlurUI.Enabled = false
+			
+			if WindowTable.ElBlurUI.Instances then
+				WindowTable.ElBlurUI.Instances.DepthOfField.Enabled = false
+				WindowTable.ElBlurUI.Instances.Part.Transparency = 1
+			end
 		end;
 
 		WindowTable.Dropdown:Close()
