@@ -3571,3 +3571,5 @@ end;
 print('[ OK ]: Fetch Nothing Library')
 
 return table.freeze(Library);
+
+warn(IsMobile)
