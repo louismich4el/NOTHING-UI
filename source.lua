@@ -3568,8 +3568,6 @@ function Library:Console()
 	return overview;
 end;
 
-print('[ OK ]: Fetch Nothing Library')
+warn(IsMobile)
 
 return table.freeze(Library);
-
-warn(IsMobile)
