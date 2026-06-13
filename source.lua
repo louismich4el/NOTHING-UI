@@ -437,6 +437,11 @@ function Library.new(config)
 			if WindowTable.ElBlurUI.Instances then
 				WindowTable.ElBlurUI.Instances.DepthOfField.Enabled = false
 				WindowTable.ElBlurUI.Instances.Part.Transparency = 1
+				WindowTable.ElBlurUI.Instances.Part.Size = Vector3.new(0.001,0.001,0.001)
+				
+				if WindowTable.ElBlurUI.Signal then
+					WindowTable.ElBlurUI.Signal:Disconnect()
+				end
 			end
 		end;
 
