@@ -105,9 +105,9 @@ local ElBlurSource = function()
 				Twen:Create(Part,TweenInfo.new(1,Enum.EasingStyle.Quint),{
 					Transparency = 1;
 				}):Play()
-
-			end;
-
+				return
+			end
+			
 			Twen:Create(Part,TweenInfo.new(1,Enum.EasingStyle.Quint,Enum.EasingDirection.Out),{
 				Transparency = 0.8;
 			}):Play()
@@ -311,8 +311,6 @@ function Library.new(config)
 	local ImageButton
 	local HomeIcon
 
-	warn(IsMobile)
-
 	if IsMobile then
 		ImageButton = Instance.new("ImageButton")
 		ImageButton.Parent = MainFrame
@@ -428,7 +426,7 @@ function Library.new(config)
 			Twen:Create(BlockFrame2,TweenInfo1,{BackgroundTransparency = 1}):Play();
 			Twen:Create(BlockFrame3,TweenInfo1,{BackgroundTransparency = 1}):Play();
 
-			WindowTable.ElBlurUI.Enabled = false;
+			WindowTable.ElBlurUI.Enabled = false
 		end;
 
 		WindowTable.Dropdown:Close()
