@@ -439,14 +439,11 @@ function Library.new(config)
 				WindowTable.ElBlurUI.Instances.Part.Transparency = 1
 			end
 
-			WindowTable.ElBlurUI.Enabled = false
-
-for _, v in ipairs(game:GetService("Lighting"):GetChildren()) do
-	if v:IsA("DepthOfFieldEffect") then
-		print("FOUND DOF:", v.Name)
-		v.Enabled = false
-	end
-end
+			for _, v in ipairs(game:GetService("Lighting"):GetChildren()) do
+				if v:IsA("DepthOfFieldEffect") then
+					v.Enabled = false
+				end
+			end
 		end;
 
 		WindowTable.Dropdown:Close()
@@ -454,7 +451,9 @@ end
 			WindowTable.ToggleButton();
 		end;
 
-		task.delay(1,WindowTable.ElBlurUI.Update)
+		if WindowTable.WindowToggle and WindowTable.ElBlurUI.Enabled then
+			task.delay(1, WindowTable.ElBlurUI.Update)
+		end
 	end;
 	
 	if IsMobile then
