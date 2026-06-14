@@ -467,14 +467,14 @@ function Library.new(config)
 		PCCloseButton.Position = UDim2.new(0.998, 0, 0.01, 0)
 		PCCloseButton.Size = UDim2.new(0, 28, 0, 28)
 		PCCloseButton.ZIndex = 50
-		PCCloseButton.Image = "rbxassetid://7743878857"
+		PCCloseButton.Image = "rbxassetid://10002398990"
 		PCCloseButton.ImageColor3 = Color3.fromRGB(255, 255, 255)
 		PCCloseButton.ImageTransparency = 0
 		PCCloseButton.ScaleType = Enum.ScaleType.Fit
 		PCCloseButton.AutoButtonColor = false
 
 		PCCloseButton.MouseEnter:Connect(function()
-			Twen:Create(PCCloseButton, TweenInfo.new(0.2), {ImageColor3 = Color3.fromRGB(255, 80, 80)}):Play()
+			Twen:Create(PCCloseButton, TweenInfo.new(0.2), {ImageColor3 = Color3.fromRGB(150, 200, 255)}):Play()
 		end)
 		PCCloseButton.MouseLeave:Connect(function()
 			Twen:Create(PCCloseButton, TweenInfo.new(0.2), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
@@ -502,7 +502,7 @@ function Library.new(config)
 	MainFrame.Name = "MainFrame"
 	MainFrame.Parent = ScreenGui
 	MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-	MainFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+	MainFrame.BackgroundColor3 = Color3.fromRGB(8, 8, 10)
 	MainFrame.BackgroundTransparency = 0
 	MainFrame.BorderSizePixel = 0
 	MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
@@ -530,7 +530,7 @@ function Library.new(config)
 	MainDropShadow.Size = UDim2.new(1, 47, 1, 47)
 	MainDropShadow.ZIndex = 0
 	MainDropShadow.Image = "rbxassetid://6015897843"
-	MainDropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	MainDropShadow.ImageColor3 = Color3.fromRGB(180, 200, 220)
 	MainDropShadow.ImageTransparency = 1
 	MainDropShadow.ScaleType = Enum.ScaleType.Slice
 	MainDropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
@@ -540,7 +540,7 @@ function Library.new(config)
 
 	Headers.Name = "Headers"
 	Headers.Parent = MainFrame
-	Headers.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+	Headers.BackgroundColor3 = Color3.fromRGB(12, 12, 16)
 	Headers.BackgroundTransparency = 1
 	Headers.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	Headers.BorderSizePixel = 0
@@ -581,7 +581,7 @@ function Library.new(config)
 	Title.Size = UDim2.new(0.671064615, 0, 0.0518743545, 0)
 	Title.Font = Enum.Font.GothamBold
 	Title.Text = config.Title
-	Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Title.TextColor3 = Color3.fromRGB(230, 235, 245)
 	Title.TextScaled = true
 	Title.TextSize = 14.000
 	Title.TextWrapped = true
@@ -604,13 +604,13 @@ function Library.new(config)
 	Description.Size = UDim2.new(0.671064615, 0, 0.0290780049, 0)
 	Description.Font = Enum.Font.GothamBold
 	Description.Text = config.Description
-	Description.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Description.TextColor3 = Color3.fromRGB(140, 150, 165)
 	Description.TextScaled = true
 	Description.TextSize = 14.000
 	Description.TextTransparency = 1
 	Description.TextWrapped = true
 	Description.TextXAlignment = Enum.TextXAlignment.Left
-	Twen:Create(Description,TweenInfo2,{TextTransparency = 0.5}):Play();
+	Twen:Create(Description,TweenInfo2,{TextTransparency = 0.3}):Play();
 
 	UIGradient_2.Rotation = 90
 	UIGradient_2.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.00), NumberSequenceKeypoint.new(0.75, 0.27), NumberSequenceKeypoint.new(1.00, 1.00)}
@@ -675,7 +675,7 @@ function Library.new(config)
 	TabButtonFrame.Name = "TabButtonFrame"
 	TabButtonFrame.Parent = MainFrame
 	TabButtonFrame.AnchorPoint = Vector2.new(0.5, 0)
-	TabButtonFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+	TabButtonFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 14)
 	TabButtonFrame.BackgroundTransparency = 1
 	TabButtonFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	TabButtonFrame.BorderSizePixel = 0
@@ -710,7 +710,7 @@ function Library.new(config)
 	MainTabFrame.Name = "MainTabFrame"
 	MainTabFrame.Parent = MainFrame
 	MainTabFrame.AnchorPoint = Vector2.new(0.5, 0)
-	MainTabFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+	MainTabFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 14)
 	MainTabFrame.BackgroundTransparency = 1
 	MainTabFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	MainTabFrame.BorderSizePixel = 0
@@ -751,7 +751,7 @@ function Library.new(config)
 
 		DropdownFrame.Name = "DropdownFrame"
 		DropdownFrame.Parent = ScreenGui
-		DropdownFrame.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
+		DropdownFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 14)
 		DropdownFrame.BackgroundTransparency = 0.500
 		DropdownFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		DropdownFrame.BorderSizePixel = 0
@@ -777,8 +777,8 @@ function Library.new(config)
 		MiniDropShadow.ScaleType = Enum.ScaleType.Slice
 		MiniDropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
 
-		UIStroke.Transparency = 0.900
-		UIStroke.Color = Color3.fromRGB(255, 255, 255)
+		UIStroke.Transparency = 0.700
+		UIStroke.Color = Color3.fromRGB(180, 200, 220)
 		UIStroke.Parent = DropdownFrame
 
 		ValueId.Name = "ValueId"
@@ -1179,7 +1179,7 @@ function Library.new(config)
 		Title.Size = UDim2.new(1, 0, 0.400000006, 0)
 		Title.Font = Enum.Font.GothamBold
 		Title.Text = cfg.Title
-		Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+		Title.TextColor3 = Color3.fromRGB(220, 228, 240)
 		Title.TextScaled = true
 		Title.TextSize = 14.000
 		Title.TextWrapped = true
@@ -1201,7 +1201,7 @@ function Library.new(config)
 		Description.Size = UDim2.new(1, 0, 0.300000012, 0)
 		Description.Font = Enum.Font.GothamBold
 		Description.Text = cfg.Description
-		Description.TextColor3 = Color3.fromRGB(255, 255, 255)
+		Description.TextColor3 = Color3.fromRGB(130, 142, 158)
 		Description.TextScaled = true
 		Description.TextSize = 14.000
 		Description.TextTransparency = 1
@@ -1214,7 +1214,7 @@ function Library.new(config)
 
 		Frame.Parent = TabButton
 		Frame.AnchorPoint = Vector2.new(1, 0.5)
-		Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Frame.BackgroundColor3 = Color3.fromRGB(180, 210, 235)
 		Frame.BackgroundTransparency = 1
 		Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		Frame.BorderSizePixel = 0
