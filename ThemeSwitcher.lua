@@ -1,5 +1,3 @@
-
-
 local ThemeSwitcher = {}
 
 local Themes = {
