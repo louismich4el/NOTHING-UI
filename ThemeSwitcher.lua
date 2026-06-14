@@ -273,10 +273,8 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
         Default  = currentThemeName,
         Data     = themeNames,
         Callback = function(selected)
-            local theme = Themes[selected]
-            if not theme then return end
+            if not Themes[selected] then return end
             pendingThemeName = selected
-            ApplyTheme(ScreenGui, theme)
         end,
     })
 
