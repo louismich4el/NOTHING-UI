@@ -1,30 +1,4 @@
---[[
-    NOTHING-UI Theme Switcher
-    by louismich4el
-
-    USAGE — place this AFTER you load the Library and create your Window:
-
-        local ThemeSwitcher = loadstring(game:HttpGet('YOUR_RAW_URL/ThemeSwitcher.lua'))()
-        ThemeSwitcher:Init(Window, ScreenGui)   -- pass your Window & ScreenGui
-
-    That's it! A "Theme" tab will be added automatically to your Window.
-    Players can change theme at any time; the choice is saved via writefile.
---]]
-
 local ThemeSwitcher = {}
-
--- ─────────────────────────────────────────────────────────────────────────────
---  THEME DEFINITIONS
---  Each theme has:
---    bg        – main window background
---    panel     – sidebar / content panels
---    accent    – glowing highlight colour (toggle on, active tab bar, etc.)
---    text      – primary label colour
---    subtext   – secondary / description colour
---    element   – individual toggle / button row background
---    stroke    – UIStroke colour on elements
---    shadow    – drop-shadow tint
--- ─────────────────────────────────────────────────────────────────────────────
 local Themes = {
     ["Koeru"] = {
         name    = "Koeru",
@@ -93,10 +67,6 @@ local Themes = {
         shadow  = Color3.fromRGB(200, 80, 20),
     },
 }
-
--- ─────────────────────────────────────────────────────────────────────────────
---  HELPERS
--- ─────────────────────────────────────────────────────────────────────────────
 local TweenService = game:GetService("TweenService")
 local TI = TweenInfo.new(0.4, Enum.EasingStyle.Quint)
 
@@ -117,16 +87,9 @@ local function LoadTheme()
     end
     return "Koeru"
 end
-
--- ─────────────────────────────────────────────────────────────────────────────
---  APPLY THEME  (walks the entire ScreenGui and re-colours everything)
--- ─────────────────────────────────────────────────────────────────────────────
 local function ApplyTheme(screenGui, theme)
-    -- Walk every descendant and re-colour based on name / class
     for _, obj in ipairs(screenGui:GetDescendants()) do
         local name = obj.Name
-
-        -- ── Backgrounds ────────────────────────────────────────────────────
         if name == "MainFrame" and obj:IsA("Frame") then
             Tween(obj, { BackgroundColor3 = theme.bg })
 
@@ -147,86 +110,54 @@ local function ApplyTheme(screenGui, theme)
 
         elseif name == "TabButton" and obj:IsA("Frame") then
             Tween(obj, { BackgroundColor3 = theme.panel })
-
-        -- ── Section header frames ──────────────────────────────────────────
         elseif name == "SectionFrame" and obj:IsA("Frame") then
             Tween(obj, { BackgroundColor3 = theme.panel })
-
-        -- ── Drop shadow tint ───────────────────────────────────────────────
         elseif name == "MainDropShadow" and obj:IsA("ImageLabel") then
             Tween(obj, { ImageColor3 = theme.shadow })
 
         elseif name == "MiniDropShadow" and obj:IsA("ImageLabel") then
             Tween(obj, { ImageColor3 = theme.shadow })
-
-        -- ── Text labels ────────────────────────────────────────────────────
         elseif obj:IsA("TextLabel") or obj:IsA("TextButton") then
             if name == "Title" or name == "TextInt" or name == "ValueId" then
                 Tween(obj, { TextColor3 = theme.text })
             elseif name == "Description" then
                 Tween(obj, { TextColor3 = theme.subtext })
             end
-
-        -- ── UIStrokes ──────────────────────────────────────────────────────
         elseif obj:IsA("UIStroke") then
             Tween(obj, { Color = theme.stroke })
-
-        -- ── Accent: active tab side bar, toggle icon, slider fill ──────────
         elseif name == "Frame" and obj:IsA("Frame") then
-            -- Tab accent bar (the little pill on the right of each tab)
             local par = obj.Parent
             if par and par.Name == "TabButton" then
                 Tween(obj, { BackgroundColor3 = theme.accent })
             end
 
         elseif name == "Icon" and obj:IsA("Frame") then
-            -- Toggle knob
             if obj.Parent and obj.Parent.Name == "System" then
                 Tween(obj, { BackgroundColor3 = theme.accent })
             end
 
         elseif name == "Fill" and obj:IsA("Frame") then
-            -- Slider fill bar
             Tween(obj, { BackgroundColor3 = theme.accent })
 
         elseif name == "GLImage" and obj:IsA("ImageLabel") then
-            -- Animated gradient orb accent
             Tween(obj, { ImageColor3 = theme.accent })
         end
     end
 end
-
--- ─────────────────────────────────────────────────────────────────────────────
---  PUBLIC: Init
---  Call this right after creating your Window.
---
---  Usage:
---    ThemeSwitcher:Init(Window, ScreenGui)
---
---  If you already have a "Settings" or "Misc" tab you want to put it in,
---  pass it as the third argument:
---    ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
--- ─────────────────────────────────────────────────────────────────────────────
 function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
     assert(Window, "[ThemeSwitcher] Window is nil — pass your Window table")
     assert(ScreenGui, "[ThemeSwitcher] ScreenGui is nil — pass your ScreenGui")
 
     local currentThemeName = LoadTheme()
     local currentTheme     = Themes[currentThemeName]
-
-    -- Apply saved theme immediately on load
     task.defer(function()
         ApplyTheme(ScreenGui, currentTheme)
     end)
-
-    -- Build list of theme names for the dropdown
     local themeNames = {}
     for k in pairs(Themes) do
         table.insert(themeNames, k)
     end
     table.sort(themeNames)
-
-    -- Create or use provided tab
     local Tab = ExistingTab or Window:NewTab({
         Title       = "Theme",
         Description = "Customise UI colours",
@@ -237,8 +168,6 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
         Title = "Theme Selector",
         Side  = "Left",
     })
-
-    -- ── Theme dropdown ────────────────────────────────────────────────────
     Section:NewDropdown({
         Title   = "Colour Theme",
         Default = currentThemeName,
@@ -252,15 +181,11 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
             SaveTheme(selected)
         end,
     })
-
-    -- ── Individual accent colour picker (if your library supports it) ────
-    -- Wrapped in pcall so it silently skips if NewColorpicker doesn't exist
     pcall(function()
         Section:NewColorpicker({
             Title   = "Custom Accent",
             Default = currentTheme.accent,
             Callback = function(color)
-                -- Only override the accent; keep other theme colours
                 currentTheme = {
                     bg      = currentTheme.bg,
                     panel   = currentTheme.panel,
@@ -271,13 +196,10 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
                     stroke  = currentTheme.stroke,
                     shadow  = currentTheme.shadow,
                 }
-                -- Re-apply with new accent
                 ApplyTheme(ScreenGui, currentTheme)
             end,
         })
     end)
-
-    -- ── Preview button: cycle through themes ──────────────────────────────
     local previewIndex = 1
     Section:NewButton({
         Title    = "Preview Next Theme",
@@ -286,11 +208,8 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
             local name  = themeNames[previewIndex]
             local theme = Themes[name]
             ApplyTheme(ScreenGui, theme)
-            -- Don't save — just preview. User must select from dropdown to save.
         end,
     })
-
-    -- ── Reset to default ──────────────────────────────────────────────────
     Section:NewButton({
         Title    = "Reset to Koeru",
         Callback = function()
@@ -298,19 +217,13 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
             SaveTheme("Koeru")
         end,
     })
-
-    -- ── Right column: theme info ──────────────────────────────────────────
     local InfoSection = Tab:NewSection({
         Title = "Theme Info",
         Side  = "Right",
     })
 
     local ThemeLabel = InfoSection:NewTitle("Active: " .. currentThemeName)
-
-    -- Update label when theme changes
     local _orig = Themes
-    -- Patch: wrap the dropdown callback to also update the label
-    -- (we do this via a simple RenderStep poll since we can't hook callbacks after creation)
     task.spawn(function()
         local last = currentThemeName
         while task.wait(0.5) do
@@ -322,8 +235,6 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
             end
         end
     end)
-
-    -- Expose API in case script wants to change theme programmatically
     self.SetTheme = function(_, name)
         local theme = Themes[name]
         if not theme then
