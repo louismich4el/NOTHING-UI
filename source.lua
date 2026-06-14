@@ -1714,6 +1714,38 @@ function Library.new(config)
 				return TitleTable
 			end;
 
+			function SectionTable:NewSeparator()
+				local FunctionTitle = Instance.new("Frame")
+				local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+				local Line = Instance.new("Frame")
+				local UICorner = Instance.new("UICorner")
+
+				FunctionTitle.Name = "FunctionTitle"
+				FunctionTitle.Parent = Section
+				FunctionTitle.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
+				FunctionTitle.BackgroundTransparency = 1
+				FunctionTitle.BorderSizePixel = 0
+				FunctionTitle.Size = UDim2.new(0.949999988, 0, 0.5, 0)
+				FunctionTitle.ZIndex = 17
+
+				UIAspectRatioConstraint.AspectRatio = 8.000
+				UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
+				UIAspectRatioConstraint.Parent = FunctionTitle
+
+				Line.Name = "Line"
+				Line.Parent = FunctionTitle
+				Line.AnchorPoint = Vector2.new(0.5, 0.5)
+				Line.Position = UDim2.new(0.5, 0, 0.5, 0)
+				Line.Size = UDim2.new(0.92, 0, 0, 1)
+				Line.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				Line.BackgroundTransparency = 0.85
+				Line.BorderSizePixel = 0
+				Line.ZIndex = 18
+
+				UICorner.CornerRadius = UDim.new(1, 0)
+				UICorner.Parent = Line
+			end;
+
 			function SectionTable:NewButton(cfg)
 				cfg = Config(cfg,{
 					Title = "Button",
