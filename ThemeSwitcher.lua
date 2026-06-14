@@ -279,7 +279,7 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
     })
 
     Section:NewButton({
-        Title    = "Save Theme",
+        Title    = "Set Current Theme",
         Callback = function()
             local theme = Themes[pendingThemeName]
             if not theme then return end
