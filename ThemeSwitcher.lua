@@ -1,21 +1,5 @@
---[[
-    NOTHING-UI Theme Switcher
-    by louismich4el
-
-    USAGE — add this at the bottom of your script, after creating your Window:
-
-        local ThemeSwitcher = loadstring(game:HttpGet('YOUR_RAW_URL/ThemeSwitcher.lua'))()
-        ThemeSwitcher:Init(Windows, ScreenGui)
-
-    A "Settings" tab will be added automatically to your Window.
-    Theme choice is saved via writefile so it persists between sessions.
---]]
-
 local ThemeSwitcher = {}
 
--- ─────────────────────────────────────────────────────────────────────────────
---  THEME DEFINITIONS
--- ─────────────────────────────────────────────────────────────────────────────
 local Themes = {
     ["Koeru"] = {
         bg      = Color3.fromRGB(8,   8,  10),
@@ -38,8 +22,8 @@ local Themes = {
         shadow  = Color3.fromRGB(60,  80,  200),
     },
     ["Crimson"] = {
-        bg      = Color3.fromRGB(10, 5,   5),
-        panel   = Color3.fromRGB(18, 8,   8),
+        bg      = Color3.fromRGB(10, 5,  5),
+        panel   = Color3.fromRGB(18, 8,  8),
         accent  = Color3.fromRGB(220, 50, 70),
         text    = Color3.fromRGB(245, 220, 220),
         subtext = Color3.fromRGB(165, 110, 110),
@@ -50,7 +34,7 @@ local Themes = {
     ["Forest"] = {
         bg      = Color3.fromRGB(5,  10, 5),
         panel   = Color3.fromRGB(8,  16, 8),
-        accent  = Color3.fromRGB(60, 200, 100),
+        accent  = Color3.fromRGB(60,  200, 100),
         text    = Color3.fromRGB(210, 240, 210),
         subtext = Color3.fromRGB(110, 160, 110),
         element = Color3.fromRGB(10,  20, 10),
@@ -77,6 +61,46 @@ local Themes = {
         stroke  = Color3.fromRGB(255, 140, 50),
         shadow  = Color3.fromRGB(200, 80,  20),
     },
+    ["Blossom"] = {
+        bg      = Color3.fromRGB(14, 8,  12),
+        panel   = Color3.fromRGB(22, 12, 18),
+        accent  = Color3.fromRGB(255, 130, 180),
+        text    = Color3.fromRGB(255, 225, 240),
+        subtext = Color3.fromRGB(190, 140, 165),
+        element = Color3.fromRGB(28,  14, 22),
+        stroke  = Color3.fromRGB(255, 150, 190),
+        shadow  = Color3.fromRGB(220, 80,  140),
+    },
+    ["Sakura"] = {
+        bg      = Color3.fromRGB(20, 10, 14),
+        panel   = Color3.fromRGB(30, 14, 20),
+        accent  = Color3.fromRGB(255, 182, 210),
+        text    = Color3.fromRGB(255, 235, 245),
+        subtext = Color3.fromRGB(200, 160, 180),
+        element = Color3.fromRGB(36,  16, 24),
+        stroke  = Color3.fromRGB(255, 182, 210),
+        shadow  = Color3.fromRGB(230, 120, 170),
+    },
+    ["Violet"] = {
+        bg      = Color3.fromRGB(10, 6,  16),
+        panel   = Color3.fromRGB(16, 9,  26),
+        accent  = Color3.fromRGB(160, 80, 255),
+        text    = Color3.fromRGB(235, 220, 255),
+        subtext = Color3.fromRGB(150, 120, 200),
+        element = Color3.fromRGB(20,  11, 32),
+        stroke  = Color3.fromRGB(160, 80, 255),
+        shadow  = Color3.fromRGB(110, 40, 200),
+    },
+    ["Lavender"] = {
+        bg      = Color3.fromRGB(12, 10, 18),
+        panel   = Color3.fromRGB(18, 14, 28),
+        accent  = Color3.fromRGB(190, 160, 255),
+        text    = Color3.fromRGB(240, 235, 255),
+        subtext = Color3.fromRGB(160, 145, 205),
+        element = Color3.fromRGB(22,  17, 34),
+        stroke  = Color3.fromRGB(190, 160, 255),
+        shadow  = Color3.fromRGB(140, 100, 230),
+    },
     ["Neon"] = {
         bg      = Color3.fromRGB(5,  5,  5),
         panel   = Color3.fromRGB(8,  8,  8),
@@ -96,16 +120,6 @@ local Themes = {
         element = Color3.fromRGB(8,   20, 36),
         stroke  = Color3.fromRGB(40,  180, 255),
         shadow  = Color3.fromRGB(20,  120, 200),
-    },
-    ["Violet"] = {
-        bg      = Color3.fromRGB(10, 6,  16),
-        panel   = Color3.fromRGB(16, 9,  26),
-        accent  = Color3.fromRGB(160, 80, 255),
-        text    = Color3.fromRGB(235, 220, 255),
-        subtext = Color3.fromRGB(150, 120, 200),
-        element = Color3.fromRGB(20,  11, 32),
-        stroke  = Color3.fromRGB(160, 80, 255),
-        shadow  = Color3.fromRGB(110, 40, 200),
     },
     ["Rose Gold"] = {
         bg      = Color3.fromRGB(14, 9,  9),
@@ -137,31 +151,8 @@ local Themes = {
         stroke  = Color3.fromRGB(255, 80, 200),
         shadow  = Color3.fromRGB(200, 40, 160),
     },
-    ["Sakura"] = {
-        bg      = Color3.fromRGB(20, 10, 14),
-        panel   = Color3.fromRGB(30, 14, 20),
-        accent  = Color3.fromRGB(255, 182, 210),
-        text    = Color3.fromRGB(255, 235, 245),
-        subtext = Color3.fromRGB(200, 160, 180),
-        element = Color3.fromRGB(36,  16, 24),
-        stroke  = Color3.fromRGB(255, 182, 210),
-        shadow  = Color3.fromRGB(230, 120, 170),
-    },
-    ["Lavender"] = {
-        bg      = Color3.fromRGB(12, 10, 18),
-        panel   = Color3.fromRGB(18, 14, 28),
-        accent  = Color3.fromRGB(190, 160, 255),
-        text    = Color3.fromRGB(240, 235, 255),
-        subtext = Color3.fromRGB(160, 145, 205),
-        element = Color3.fromRGB(22,  17, 34),
-        stroke  = Color3.fromRGB(190, 160, 255),
-        shadow  = Color3.fromRGB(140, 100, 230),
-    },
 }
 
--- ─────────────────────────────────────────────────────────────────────────────
---  HELPERS
--- ─────────────────────────────────────────────────────────────────────────────
 local TweenService = game:GetService("TweenService")
 local TI = TweenInfo.new(0.4, Enum.EasingStyle.Quint)
 
@@ -183,9 +174,6 @@ local function LoadTheme()
     return "Koeru"
 end
 
--- ─────────────────────────────────────────────────────────────────────────────
---  APPLY THEME — walks ScreenGui and re-colours every known element
--- ─────────────────────────────────────────────────────────────────────────────
 local function ApplyTheme(screenGui, theme)
     for _, obj in ipairs(screenGui:GetDescendants()) do
         local name = obj.Name
@@ -211,7 +199,7 @@ local function ApplyTheme(screenGui, theme)
         elseif name == "TabButton" and obj:IsA("Frame") then
             Tween(obj, { BackgroundColor3 = theme.panel })
 
-        elseif name == "Section" and obj:IsA("Frame") then
+        elseif name == "SectionFrame" and obj:IsA("Frame") then
             Tween(obj, { BackgroundColor3 = theme.panel })
 
         elseif name == "MainDropShadow" and obj:IsA("ImageLabel") then
@@ -221,7 +209,7 @@ local function ApplyTheme(screenGui, theme)
             Tween(obj, { ImageColor3 = theme.shadow })
 
         elseif obj:IsA("TextLabel") or obj:IsA("TextButton") then
-            if name == "Title" or name == "TextInt" or name == "ValueId" or name == "ValueText" then
+            if name == "Title" or name == "TextInt" or name == "ValueId" then
                 Tween(obj, { TextColor3 = theme.text })
             elseif name == "Description" then
                 Tween(obj, { TextColor3 = theme.subtext })
@@ -250,69 +238,60 @@ local function ApplyTheme(screenGui, theme)
     end
 end
 
--- ─────────────────────────────────────────────────────────────────────────────
---  PUBLIC API
--- ─────────────────────────────────────────────────────────────────────────────
-function ThemeSwitcher:Init(Window, ScreenGui)
+function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
     assert(Window,    "[ThemeSwitcher] Window is nil — pass your Window table")
-    assert(ScreenGui, "[ThemeSwitcher] ScreenGui is nil — pass your ScreenGui instance")
+    assert(ScreenGui, "[ThemeSwitcher] ScreenGui is nil — pass your ScreenGui")
 
     local currentThemeName = LoadTheme()
     local currentTheme     = Themes[currentThemeName]
+
     local pendingThemeName = currentThemeName
 
-    -- Apply saved theme right away
     task.defer(function()
         ApplyTheme(ScreenGui, currentTheme)
     end)
 
-    -- Sorted theme name list for dropdown
     local themeNames = {}
     for k in pairs(Themes) do
         table.insert(themeNames, k)
     end
     table.sort(themeNames)
 
-    -- ── Settings tab  (settings icon from Lucide: "settings-2")  ──────────
-    -- Lucide icon name used by the library's icon resolver
-    local SettingsTab = Window:NewTab({
-        Title       = "Settings",
-        Description = "Customise your UI",
-        Icon        = "settings-2",   -- Lucide icon: gear/cog
+    local Tab = ExistingTab or Window:NewTab({
+        Title       = "Theme",
+        Description = "Customise UI colours",
+        Icon        = "rbxassetid://7733964640",
     })
 
-    -- ── Theme section ─────────────────────────────────────────────────────
-    local ThemeSection = SettingsTab:NewSection({
+    local Section = Tab:NewSection({
+        Title = "Theme Selector",
+        Side  = "Left",
+    })
+
+    Section:NewDropdown({
         Title    = "Colour Theme",
-        Icon     = "palette",          -- Lucide icon: palette
-        Position = "Left",
-    })
-
-    -- Dropdown — selecting previews live, button saves
-    ThemeSection:NewDropdown({
-        Title    = "Select Theme",
-        Data     = themeNames,
         Default  = currentThemeName,
+        Data     = themeNames,
         Callback = function(selected)
             if not Themes[selected] then return end
             pendingThemeName = selected
-            -- Live preview
-            ApplyTheme(ScreenGui, Themes[selected])
         end,
     })
 
-    ThemeSection:NewButton({
-        Title    = "Apply & Save Theme",
+    Section:NewButton({
+        Title    = "Set Current Theme",
         Callback = function()
+            local theme = Themes[pendingThemeName]
+            if not theme then return end
             currentThemeName = pendingThemeName
-            currentTheme     = Themes[currentThemeName]
-            ApplyTheme(ScreenGui, currentTheme)
+            currentTheme     = theme
+            ApplyTheme(ScreenGui, theme)
             SaveTheme(currentThemeName)
         end,
     })
 
-    ThemeSection:NewButton({
-        Title    = "Reset to Default (Koeru)",
+    Section:NewButton({
+        Title    = "Reset to Default",
         Callback = function()
             pendingThemeName = "Koeru"
             currentThemeName = "Koeru"
@@ -322,22 +301,19 @@ function ThemeSwitcher:Init(Window, ScreenGui)
         end,
     })
 
-    -- ── UI section ────────────────────────────────────────────────────────
-    local UISection = SettingsTab:NewSection({
-        Title    = "Interface",
-        Icon     = "monitor",          -- Lucide icon
-        Position = "Left",
+    local DangerSection = Tab:NewSection({
+        Title = "Danger Zone",
+        Side  = "Left",
     })
 
-    UISection:NewButton({
+    DangerSection:NewButton({
         Title    = "Destroy UI",
         Callback = function()
             pcall(function() ScreenGui:Destroy() end)
         end,
     })
 
-    -- ── Expose programmatic API ───────────────────────────────────────────
-    function self:SetTheme(name)
+    self.SetTheme = function(_, name)
         local theme = Themes[name]
         if not theme then
             warn("[ThemeSwitcher] Unknown theme: " .. tostring(name))
@@ -350,12 +326,12 @@ function ThemeSwitcher:Init(Window, ScreenGui)
         SaveTheme(name)
     end
 
-    function self:GetTheme()
+    self.GetTheme = function()
         return currentThemeName, currentTheme
     end
 
-    function self:AddTheme(name, themeData)
-        assert(type(name) == "string",     "[ThemeSwitcher] name must be a string")
+    self.AddTheme = function(_, name, themeData)
+        assert(type(name) == "string",     "[ThemeSwitcher] theme name must be a string")
         assert(type(themeData) == "table", "[ThemeSwitcher] themeData must be a table")
         Themes[name] = themeData
     end
