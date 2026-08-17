@@ -2049,10 +2049,23 @@ function Library.new(config)
 					Min = 0,
 					Max = 100,
 					Default = 50,
+					Decimals = 0,
 					Callback = function()
 
 					end,
 				});
+
+				local function RoundToDecimals(number, decimals)
+					local mult = 10 ^ (decimals or 0)
+					return math.floor((number * mult) + 0.5) / mult
+				end
+
+				local function FormatSliderValue(value, decimals)
+					if decimals and decimals > 0 then
+						return string.format("%." .. decimals .. "f", value)
+					end
+					return tostring(math.floor(value + 0.5))
+				end
 
 				local FunctionSlider = Instance.new("Frame")
 				local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
@@ -2122,7 +2135,7 @@ function Library.new(config)
 				ValueText.Size = UDim2.new(0.949999988, 0, 0.349999994, 0)
 				ValueText.ZIndex = 18
 				ValueText.Font = Enum.Font.GothamBold
-				ValueText.Text = tostring(slider.Default)..'/'..tostring(slider.Max)
+				ValueText.Text = FormatSliderValue(slider.Default, slider.Decimals)..'/'..FormatSliderValue(slider.Max, slider.Decimals)
 				ValueText.TextColor3 = Color3.fromRGB(255, 255, 255)
 				ValueText.TextScaled = true
 				ValueText.TextSize = 14.000
@@ -2170,9 +2183,9 @@ function Library.new(config)
 				local function update(Input)
 					local SizeScale = math.clamp((((Input.Position.X) - MFrame.AbsolutePosition.X) / MFrame.AbsoluteSize.X), 0, 1)
 					local Main = ((slider.Max - slider.Min) * SizeScale) + slider.Min;
-					local Value = math.round(Main)
+					local Value = RoundToDecimals(Main, slider.Decimals)
 					local Size = UDim2.fromScale(SizeScale, 1)
-					ValueText.Text = tostring(Value)..'/'..tostring(slider.Max)
+					ValueText.Text = FormatSliderValue(Value, slider.Decimals)..'/'..FormatSliderValue(slider.Max, slider.Decimals)
 					Twen:Create(TFrame,TweenInfo.new(0.1),{Size = Size}):Play()
 					slider.Callback(Value);
 				end
@@ -2209,9 +2222,11 @@ function Library.new(config)
 						FunctionSlider.Visible = newindx
 					end,
 					Value = function(lrm)
-						TFrame.Size = UDim2.new((lrm / slider.Max), 0, 1, 0)
+						local Value = RoundToDecimals(lrm, slider.Decimals)
+						TFrame.Size = UDim2.new((Value / slider.Max), 0, 1, 0)
+						ValueText.Text = FormatSliderValue(Value, slider.Decimals)..'/'..FormatSliderValue(slider.Max, slider.Decimals)
 
-						slider.Callback(lrm);
+						slider.Callback(Value);
 					end,
 				};
 			end;
