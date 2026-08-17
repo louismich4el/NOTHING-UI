@@ -2055,16 +2055,24 @@ function Library.new(config)
 					end,
 				});
 
-				local function RoundToDecimals(number, decimals)
-					local mult = 10 ^ (decimals or 0)
-					return math.floor((number * mult) + 0.5) / mult
+				local function RoundSlider(num)
+					local Multiplier = 10 ^ (slider.Decimals or 0)
+					local Rounded = math.round(num * Multiplier) / Multiplier
+
+					if (slider.Decimals or 0) <= 0 then
+						return Rounded
+					end
+
+					-- Trim floating point artifacts (e.g. 3.0999999999) via string round-trip
+					return tonumber(string.format("%."..slider.Decimals.."f", Rounded))
 				end
 
-				local function FormatSliderValue(value, decimals)
-					if decimals and decimals > 0 then
-						return string.format("%." .. decimals .. "f", value)
+				local function FormatSliderNumber(num)
+					if (slider.Decimals or 0) > 0 then
+						return string.format("%."..slider.Decimals.."f", num)
 					end
-					return tostring(math.floor(value + 0.5))
+
+					return tostring(num)
 				end
 
 				local FunctionSlider = Instance.new("Frame")
@@ -2135,7 +2143,7 @@ function Library.new(config)
 				ValueText.Size = UDim2.new(0.949999988, 0, 0.349999994, 0)
 				ValueText.ZIndex = 18
 				ValueText.Font = Enum.Font.GothamBold
-				ValueText.Text = FormatSliderValue(slider.Default, slider.Decimals)..'/'..FormatSliderValue(slider.Max, slider.Decimals)
+				ValueText.Text = FormatSliderNumber(slider.Default)..'/'..FormatSliderNumber(slider.Max)
 				ValueText.TextColor3 = Color3.fromRGB(255, 255, 255)
 				ValueText.TextScaled = true
 				ValueText.TextSize = 14.000
@@ -2183,9 +2191,14 @@ function Library.new(config)
 				local function update(Input)
 					local SizeScale = math.clamp((((Input.Position.X) - MFrame.AbsolutePosition.X) / MFrame.AbsoluteSize.X), 0, 1)
 					local Main = ((slider.Max - slider.Min) * SizeScale) + slider.Min;
-					local Value = RoundToDecimals(Main, slider.Decimals)
-					local Size = UDim2.fromScale(SizeScale, 1)
-					ValueText.Text = FormatSliderValue(Value, slider.Decimals)..'/'..FormatSliderValue(slider.Max, slider.Decimals)
+					local Value = RoundSlider(Main)
+
+					-- Recompute the fill size from the *snapped* value so the handle
+					-- lines up exactly with the value shown (matters at low decimal counts)
+					local SnappedScale = math.clamp((Value - slider.Min) / (slider.Max - slider.Min), 0, 1)
+					local Size = UDim2.fromScale(SnappedScale, 1)
+
+					ValueText.Text = FormatSliderNumber(Value)..'/'..FormatSliderNumber(slider.Max)
 					Twen:Create(TFrame,TweenInfo.new(0.1),{Size = Size}):Play()
 					slider.Callback(Value);
 				end
@@ -2222,11 +2235,13 @@ function Library.new(config)
 						FunctionSlider.Visible = newindx
 					end,
 					Value = function(lrm)
-						local Value = RoundToDecimals(lrm, slider.Decimals)
-						TFrame.Size = UDim2.new((Value / slider.Max), 0, 1, 0)
-						ValueText.Text = FormatSliderValue(Value, slider.Decimals)..'/'..FormatSliderValue(slider.Max, slider.Decimals)
+						lrm = RoundSlider(lrm)
 
-						slider.Callback(Value);
+						local SnappedScale = math.clamp((lrm - slider.Min) / (slider.Max - slider.Min), 0, 1)
+						TFrame.Size = UDim2.fromScale(SnappedScale, 1)
+						ValueText.Text = FormatSliderNumber(lrm)..'/'..FormatSliderNumber(slider.Max)
+
+						slider.Callback(lrm);
 					end,
 				};
 			end;
