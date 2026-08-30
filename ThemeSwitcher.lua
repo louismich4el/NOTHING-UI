@@ -1,6 +1,30 @@
+--[[
+    NOTHING-UI Theme Switcher
+    by louismich4el
+
+    USAGE — place this AFTER you load the Library and create your Window:
+
+        local ThemeSwitcher = loadstring(game:HttpGet('YOUR_RAW_URL/ThemeSwitcher.lua'))()
+        ThemeSwitcher:Init(Window, ScreenGui)   -- pass your Window & ScreenGui
+
+    That's it! A "Theme" tab will be added automatically to your Window.
+    Players can change theme at any time; the choice is saved via writefile.
+--]]
 
 local ThemeSwitcher = {}
 
+-- ─────────────────────────────────────────────────────────────────────────────
+--  THEME DEFINITIONS
+--  Each theme has:
+--    bg        – main window background
+--    panel     – sidebar / content panels
+--    accent    – glowing highlight colour (toggle on, active tab bar, etc.)
+--    text      – primary label colour
+--    subtext   – secondary / description colour
+--    element   – individual toggle / button row background
+--    stroke    – UIStroke colour on elements
+--    shadow    – drop-shadow tint
+-- ─────────────────────────────────────────────────────────────────────────────
 local Themes = {
     ["Koeru"] = {
         bg      = Color3.fromRGB(8,   8,  10),
@@ -154,6 +178,9 @@ local Themes = {
     },
 }
 
+-- ─────────────────────────────────────────────────────────────────────────────
+--  HELPERS
+-- ─────────────────────────────────────────────────────────────────────────────
 local TweenService = game:GetService("TweenService")
 local TI = TweenInfo.new(0.4, Enum.EasingStyle.Quint)
 
@@ -175,10 +202,14 @@ local function LoadTheme()
     return "Koeru"
 end
 
+-- ─────────────────────────────────────────────────────────────────────────────
+--  APPLY THEME  (walks the entire ScreenGui and re-colours everything)
+-- ─────────────────────────────────────────────────────────────────────────────
 local function ApplyTheme(screenGui, theme)
     for _, obj in ipairs(screenGui:GetDescendants()) do
         local name = obj.Name
 
+        -- ── Backgrounds ────────────────────────────────────────────────────
         if name == "MainFrame" and obj:IsA("Frame") then
             Tween(obj, { BackgroundColor3 = theme.bg })
 
@@ -203,12 +234,14 @@ local function ApplyTheme(screenGui, theme)
         elseif name == "SectionFrame" and obj:IsA("Frame") then
             Tween(obj, { BackgroundColor3 = theme.panel })
 
+        -- ── Drop shadow tint ───────────────────────────────────────────────
         elseif name == "MainDropShadow" and obj:IsA("ImageLabel") then
             Tween(obj, { ImageColor3 = theme.shadow })
 
         elseif name == "MiniDropShadow" and obj:IsA("ImageLabel") then
             Tween(obj, { ImageColor3 = theme.shadow })
 
+        -- ── Text labels ────────────────────────────────────────────────────
         elseif obj:IsA("TextLabel") or obj:IsA("TextButton") then
             if name == "Title" or name == "TextInt" or name == "ValueId" then
                 Tween(obj, { TextColor3 = theme.text })
@@ -216,9 +249,11 @@ local function ApplyTheme(screenGui, theme)
                 Tween(obj, { TextColor3 = theme.subtext })
             end
 
+        -- ── UIStrokes ──────────────────────────────────────────────────────
         elseif obj:IsA("UIStroke") then
             Tween(obj, { Color = theme.stroke })
 
+        -- ── Accent: active tab side bar, toggle icon, slider fill ──────────
         elseif name == "Frame" and obj:IsA("Frame") then
             local par = obj.Parent
             if par and par.Name == "TabButton" then
@@ -239,6 +274,9 @@ local function ApplyTheme(screenGui, theme)
     end
 end
 
+-- ─────────────────────────────────────────────────────────────────────────────
+--  PUBLIC: Init
+-- ─────────────────────────────────────────────────────────────────────────────
 function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
     assert(Window,    "[ThemeSwitcher] Window is nil — pass your Window table")
     assert(ScreenGui, "[ThemeSwitcher] ScreenGui is nil — pass your ScreenGui")
@@ -246,18 +284,22 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
     local currentThemeName = LoadTheme()
     local currentTheme     = Themes[currentThemeName]
 
+    -- Track whatever is selected in the dropdown (not yet confirmed)
     local pendingThemeName = currentThemeName
 
+    -- Apply saved theme immediately on load
     task.defer(function()
         ApplyTheme(ScreenGui, currentTheme)
     end)
 
+    -- Build sorted list of theme names for the dropdown
     local themeNames = {}
     for k in pairs(Themes) do
         table.insert(themeNames, k)
     end
     table.sort(themeNames)
 
+    -- Create or use provided tab
     local Tab = ExistingTab or Window:NewTab({
         Title       = "Theme",
         Description = "Customise UI colours",
@@ -269,6 +311,9 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
         Side  = "Left",
     })
 
+    -- ── Theme dropdown ────────────────────────────────────────────────────
+    -- Selecting from the dropdown previews the theme live;
+    -- "Set Current Theme" saves it.
     Section:NewDropdown({
         Title    = "Colour Theme",
         Default  = currentThemeName,
@@ -279,6 +324,7 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
         end,
     })
 
+    -- ── Set Current Theme (save the previewed selection) ──────────────────
     Section:NewButton({
         Title    = "Set Current Theme",
         Callback = function()
@@ -291,6 +337,7 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
         end,
     })
 
+    -- ── Reset to Default ──────────────────────────────────────────────────
     Section:NewButton({
         Title    = "Reset to Default",
         Callback = function()
@@ -301,7 +348,7 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
             SaveTheme("Koeru")
         end,
     })
-
+    
     local KeybindSection = Tab:NewSection({
         Title    = "Menu Keybind",
         Position = "Right",
@@ -315,6 +362,7 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
         end,
     })
 
+    -- ── Destroy UI section ───────────────────────────────────────────────
     local DangerSection = Tab:NewSection({
         Title = "Danger Zone",
         Side  = "Left",
@@ -327,6 +375,7 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
         end,
     })
 
+    -- ── Expose API ────────────────────────────────────────────────────────
     self.SetTheme = function(_, name)
         local theme = Themes[name]
         if not theme then
