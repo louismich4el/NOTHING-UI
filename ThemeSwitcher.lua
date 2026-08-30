@@ -301,14 +301,15 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
 
     -- Create or use provided tab
     local Tab = ExistingTab or Window:NewTab({
-        Title       = "Theme",
-        Description = "Customise UI colours",
-        Icon        = "rbxassetid://7733964640",
+        Title       = "Settings",
+        Description = "Customise UI Themes And More!",
+        Icon        = "rbxassetid://106731379719020",
     })
 
     local Section = Tab:NewSection({
         Title = "Theme Selector",
         Side  = "Left",
+        Icon = "rbxassetid://106731379719020",
     })
 
     -- ── Theme dropdown ────────────────────────────────────────────────────
@@ -352,6 +353,7 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
     local KeybindSection = Tab:NewSection({
         Title    = "Menu Keybind",
         Position = "Right",
+        Icon = "rbxassetid://106731379719020",
     })
 
     KeybindSection:NewKeybind({
@@ -366,6 +368,7 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
     local DangerSection = Tab:NewSection({
         Title = "Danger Zone",
         Side  = "Left",
+        Icon = "rbxassetid://106731379719020",
     })
 
     DangerSection:NewButton({
