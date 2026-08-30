@@ -1,3 +1,4 @@
+
 local ThemeSwitcher = {}
 
 local Themes = {
@@ -298,6 +299,19 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
             currentTheme     = Themes["Koeru"]
             ApplyTheme(ScreenGui, currentTheme)
             SaveTheme("Koeru")
+        end,
+    })
+
+    local KeybindSection = Tab:NewSection({
+        Title    = "Menu Keybind",
+        Position = "Right",
+    })
+
+    KeybindSection:NewKeybind({
+        Title    = "Open/Close UI",
+        Default  = Window.Keybind,
+        Callback = function(newKey)
+            Window.Keybind = newKey
         end,
     })
 
