@@ -347,15 +347,37 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
         Icon = "rbxassetid://106731379719020",
     })
 
-    local WhitelistInfo = WhitelistSection:NewTitle("Whitelisted: None")
+    local MAX_WHITELIST_ROWS = 10
+    local WhitelistRows = {}
+    for i = 1, MAX_WHITELIST_ROWS do
+        local row = WhitelistSection:NewTitle("")
+        row.Visible(false)
+        WhitelistRows[i] = row
+    end
 
     local function UpdateWhitelistInfo()
         if #Whitelist == 0 then
-            WhitelistInfo:Set("Whitelisted: None")
-        else
-            WhitelistInfo:Set("Whitelisted: " .. table.concat(Whitelist, ", "))
+            WhitelistRows[1]:Set("Whitelisted: None")
+            WhitelistRows[1].Visible(true)
+            for i = 2, MAX_WHITELIST_ROWS do
+                WhitelistRows[i].Visible(false)
+            end
+            return
+        end
+
+        for i = 1, MAX_WHITELIST_ROWS do
+            local row  = WhitelistRows[i]
+            local name = Whitelist[i]
+            if name then
+                row:Set(name)
+                row.Visible(true)
+            else
+                row.Visible(false)
+            end
         end
     end
+
+    UpdateWhitelistInfo()
 
     local PlayerDropdown = WhitelistSection:NewDropdown({
         Title    = "Select Player",
@@ -369,7 +391,7 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
     WhitelistSection:NewButton({
         Title    = "Add to Whitelist",
         Callback = function()
-            if selectedPlayer and not _WhitelistSet[selectedPlayer] then
+            if selectedPlayer and not _WhitelistSet[selectedPlayer] and #Whitelist < MAX_WHITELIST_ROWS then
                 table.insert(Whitelist, selectedPlayer)
                 RebuildWhitelistSet()
                 UpdateWhitelistInfo()
@@ -441,25 +463,3 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
         return currentThemeName, currentTheme
     end
 
-    self.AddTheme = function(_, name, themeData)
-        assert(type(name) == "string",     "[ThemeSwitcher] theme name must be a string")
-        assert(type(themeData) == "table", "[ThemeSwitcher] themeData must be a table")
-        Themes[name] = themeData
-    end
-
-    self.WhitelistSet = function(_)
-        return _WhitelistSet
-    end
-
-    self.GetWhitelist = function(_)
-        return Whitelist
-    end
-
-    self.IsWhitelisted = function(_, name)
-        return _WhitelistSet[name] == true
-    end
-
-    return self
-end
-
-return ThemeSwitcher
