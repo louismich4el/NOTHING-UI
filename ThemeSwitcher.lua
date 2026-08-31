@@ -14,6 +14,33 @@
 local ThemeSwitcher = {}
 
 -- ─────────────────────────────────────────────────────────────────────────────
+--  WHITELIST STATE
+-- ─────────────────────────────────────────────────────────────────────────────
+local Players = game:GetService("Players")
+
+local Whitelist = {}
+local _WhitelistSet = {}
+local selectedPlayer = nil
+
+local function RebuildWhitelistSet()
+    _WhitelistSet = {}
+    for _, name in ipairs(Whitelist) do
+        _WhitelistSet[name] = true
+    end
+end
+
+local function GetPlayerNames()
+    local names = {}
+    for _, plr in ipairs(Players:GetPlayers()) do
+        if plr ~= Players.LocalPlayer then
+            table.insert(names, plr.Name)
+        end
+    end
+    table.sort(names)
+    return names
+end
+
+-- ─────────────────────────────────────────────────────────────────────────────
 --  THEME DEFINITIONS
 --  Each theme has:
 --    bg        – main window background
@@ -349,7 +376,7 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
             SaveTheme("Koeru")
         end,
     })
-    
+
     local KeybindSection = Tab:NewSection({
         Title    = "Menu Keybind",
         Position = "Right",
@@ -363,6 +390,64 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
             Window.Keybind = newKey
         end,
     })
+
+    -- ── Whitelist section ────────────────────────────────────────────────
+    local WhitelistSection = Tab:NewSection({
+        Title = "Whitelist",
+        Side  = "Left",
+        Icon = "rbxassetid://106731379719020",
+    })
+
+    local PlayerDropdown = WhitelistSection:NewDropdown({
+        Title    = "Select Player",
+        Data     = GetPlayerNames(),
+        Default  = "None",
+        Callback = function(selected)
+            selectedPlayer = selected
+        end,
+    })
+
+    WhitelistSection:NewButton({
+        Title    = "Add to Whitelist",
+        Callback = function()
+            if selectedPlayer and not _WhitelistSet[selectedPlayer] then
+                table.insert(Whitelist, selectedPlayer)
+                RebuildWhitelistSet()
+            end
+        end,
+    })
+
+    WhitelistSection:NewButton({
+        Title    = "Remove from Whitelist",
+        Callback = function()
+            if selectedPlayer and _WhitelistSet[selectedPlayer] then
+                local idx = table.find(Whitelist, selectedPlayer)
+                if idx then table.remove(Whitelist, idx) end
+                RebuildWhitelistSet()
+            end
+        end,
+    })
+
+    WhitelistSection:NewButton({
+        Title    = "Refresh Players",
+        Callback = function()
+            PlayerDropdown.Set(GetPlayerNames())
+        end,
+    })
+
+    Players.PlayerAdded:Connect(function()
+        task.wait(0.5)
+        PlayerDropdown.Set(GetPlayerNames())
+    end)
+
+    Players.PlayerRemoving:Connect(function(plr)
+        PlayerDropdown.Set(GetPlayerNames())
+        if _WhitelistSet[plr.Name] then
+            local idx = table.find(Whitelist, plr.Name)
+            if idx then table.remove(Whitelist, idx) end
+            RebuildWhitelistSet()
+        end
+    end)
 
     -- ── Destroy UI section ───────────────────────────────────────────────
     local DangerSection = Tab:NewSection({
@@ -400,6 +485,18 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
         assert(type(name) == "string",     "[ThemeSwitcher] theme name must be a string")
         assert(type(themeData) == "table", "[ThemeSwitcher] themeData must be a table")
         Themes[name] = themeData
+    end
+
+    self.WhitelistSet = function(_)
+        return _WhitelistSet
+    end
+
+    self.GetWhitelist = function(_)
+        return Whitelist
+    end
+
+    self.IsWhitelisted = function(_, name)
+        return _WhitelistSet[name] == true
     end
 
     return self
