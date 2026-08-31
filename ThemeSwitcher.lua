@@ -347,33 +347,23 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
         Icon = "rbxassetid://106731379719020",
     })
 
-    local MAX_WHITELIST_ROWS = 10
-    local WhitelistRows = {}
-    for i = 1, MAX_WHITELIST_ROWS do
-        local row = WhitelistSection:NewTitle("")
-        row.Visible(false)
-        WhitelistRows[i] = row
+    local WhitelistRowPool = {}
+    local WhitelistRowByName = {}
+    local EmptyRow = WhitelistSection:NewTitle("Whitelisted: None")
+
+    local function GetFreeRow()
+        local row = table.remove(WhitelistRowPool)
+        if not row then
+            row = WhitelistSection:NewTitle("")
+        end
+        return row
     end
 
     local function UpdateWhitelistInfo()
         if #Whitelist == 0 then
-            WhitelistRows[1]:Set("Whitelisted: None")
-            WhitelistRows[1].Visible(true)
-            for i = 2, MAX_WHITELIST_ROWS do
-                WhitelistRows[i].Visible(false)
-            end
-            return
-        end
-
-        for i = 1, MAX_WHITELIST_ROWS do
-            local row  = WhitelistRows[i]
-            local name = Whitelist[i]
-            if name then
-                row:Set(name)
-                row.Visible(true)
-            else
-                row.Visible(false)
-            end
+            EmptyRow.Visible(true)
+        else
+            EmptyRow.Visible(false)
         end
     end
 
@@ -391,9 +381,15 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
     WhitelistSection:NewButton({
         Title    = "Add to Whitelist",
         Callback = function()
-            if selectedPlayer and not _WhitelistSet[selectedPlayer] and #Whitelist < MAX_WHITELIST_ROWS then
+            if selectedPlayer and not _WhitelistSet[selectedPlayer] then
                 table.insert(Whitelist, selectedPlayer)
                 RebuildWhitelistSet()
+
+                local row = GetFreeRow()
+                row:Set(selectedPlayer)
+                row.Visible(true)
+                WhitelistRowByName[selectedPlayer] = row
+
                 UpdateWhitelistInfo()
             end
         end,
@@ -406,6 +402,14 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
                 local idx = table.find(Whitelist, selectedPlayer)
                 if idx then table.remove(Whitelist, idx) end
                 RebuildWhitelistSet()
+
+                local row = WhitelistRowByName[selectedPlayer]
+                if row then
+                    row.Visible(false)
+                    table.insert(WhitelistRowPool, row)
+                    WhitelistRowByName[selectedPlayer] = nil
+                end
+
                 UpdateWhitelistInfo()
             end
         end,
@@ -429,6 +433,14 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
             local idx = table.find(Whitelist, plr.Name)
             if idx then table.remove(Whitelist, idx) end
             RebuildWhitelistSet()
+
+            local row = WhitelistRowByName[plr.Name]
+            if row then
+                row.Visible(false)
+                table.insert(WhitelistRowPool, row)
+                WhitelistRowByName[plr.Name] = nil
+            end
+
             UpdateWhitelistInfo()
         end
     end)
