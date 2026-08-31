@@ -463,3 +463,25 @@ function ThemeSwitcher:Init(Window, ScreenGui, ExistingTab)
         return currentThemeName, currentTheme
     end
 
+    self.AddTheme = function(_, name, themeData)
+        assert(type(name) == "string",     "[ThemeSwitcher] theme name must be a string")
+        assert(type(themeData) == "table", "[ThemeSwitcher] themeData must be a table")
+        Themes[name] = themeData
+    end
+
+    self.WhitelistSet = function(_)
+        return _WhitelistSet
+    end
+
+    self.GetWhitelist = function(_)
+        return Whitelist
+    end
+
+    self.IsWhitelisted = function(_, name)
+        return _WhitelistSet[name] == true
+    end
+
+    return self
+end
+
+return ThemeSwitcher
