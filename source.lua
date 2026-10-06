@@ -311,6 +311,7 @@ function Library.new(config)
 	WindowTable.WindowToggle = true;
 	WindowTable.Keybind = config.Keybind;
 	WindowTable.ToggleButton = nil
+	WindowTable.ScreenGui = ScreenGui;
 
 	local UIS = game:GetService("UserInputService")
 	local IsMobile = UIS.TouchEnabled and not UIS.KeyboardEnabled and not UIS.MouseEnabled
